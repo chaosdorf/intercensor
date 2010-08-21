@@ -1,0 +1,69 @@
+# Zensurbox 2.0
+
+In Zukunft bitte alles ins [Trac](https://www.chaosdorf.de/zensurbox)
+
+## Konzept
+
+- Achievements statt Level
+- Automatisches Erkennen von Lösungen
+- Useraccounts, Logins
+- Highscores
+- Global Statistics (Wer hat welche achievements gelöst)
+
+## Technik
+
+- Webfrontend in Python mit SQLite-Backend
+- Debian Squeeze
+- BIND, Apache, ferm, conntrack, ISC DHCP-Server
+
+## Liste der Achievements
+
+- Anon Delivers (Token -> 4chan)
+- Record Breaker (Fefe-Headline (DNS Sperre))
+- Mantrain (SSH-Verbindung: Passwort verlieren per MITM unterbinden)
+- Ferengi (Zensur deaktivierecn durch Port Knocking) (Piktogramm: Nog am Safe)
+
+## Weitere Ideen
+
+- Website: zensurbox.chaosdorf.de (Trac?)
+
+## Aufgabenverteilung
+
+**Gerne noch mehr Leute**
+
+derf
+
+- Automatisierter Test
+- Softwareentwicklung
+- Sklaventreiber
+
+muzy
+
+- Illustrationen
+- Softwareentwicklung
+- Webdesign
+- Story Design (Text zu Achievements + Anfang + Credits)
+
+mxey
+
+- Softwareentwicklung
+- Systemadminfoo
+- Firewall
+- Achievements ausdenken
+
+penma
+
+- Softwareentwicklung
+- Webdesign
+
+byte
+
+- Hardwarewartung
+
+## Besprechung 20. Juli 2010
+
+- Trac auf chaosdorf.de einrichten
+- Projekt in Englisch
+- Design Mac/Roundcube-artig
+- Lizenz: ISC
+

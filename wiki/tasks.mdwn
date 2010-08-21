@@ -1,0 +1,33 @@
+# Tasks
+
+More people are always fine
+
+## derf
+
+- automated tests
+- software development
+- slave driver
+
+## muzy
+
+- illustrations
+- software development
+- web design
+- story design (achievement descriptions, intro, credits)
+
+## mxey
+
+- software development
+- system admin stuff
+- firewall
+- achievements
+
+## penma
+
+- software development
+- web design
+
+## byte
+
+- hardware maintenance
+

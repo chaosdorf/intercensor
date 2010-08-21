@@ -1,64 +1,27 @@
 # Zensurbox 2.0
 
-In Zukunft bitte alles ins [Trac](https://www.chaosdorf.de/zensurbox)
-
 ## Konzept
 
-- Achievements statt Level
-- Automatisches Erkennen von Lösungen
-- Useraccounts, Logins
-- Highscores
-- Global Statistics (Wer hat welche achievements gelöst)
+- achievements instead of levels
+- automatic verification of solutions
+- useraccounts and login
+- high score
+- global stats (who solved which achievements)
 
 ## Technik
 
-- Webfrontend in Python mit SQLite-Backend
+- webfrontend in python (perl?) with sqlite (?) backend
 - Debian Squeeze
-- BIND, Apache, ferm, conntrack, ISC DHCP-Server
+- BIND, Apache, ferm, conntrack, ISC DHCP server
 
-## Liste der Achievements
+## Einführungshinweise
 
-- Anon Delivers (Token -> 4chan)
-- Record Breaker (Fefe-Headline (DNS Sperre))
-- Mantrain (SSH-Verbindung: Passwort verlieren per MITM unterbinden)
-- Ferengi (Zensur deaktivierecn durch Port Knocking) (Piktogramm: Nog am Safe)
+- you often don't need VPN, it'll ruin the fun
+- you might need to use sniffers
 
 ## Weitere Ideen
 
 - Website: zensurbox.chaosdorf.de (Trac?)
-
-## Aufgabenverteilung
-
-**Gerne noch mehr Leute**
-
-derf
-
-- Automatisierter Test
-- Softwareentwicklung
-- Sklaventreiber
-
-muzy
-
-- Illustrationen
-- Softwareentwicklung
-- Webdesign
-- Story Design (Text zu Achievements + Anfang + Credits)
-
-mxey
-
-- Softwareentwicklung
-- Systemadminfoo
-- Firewall
-- Achievements ausdenken
-
-penma
-
-- Softwareentwicklung
-- Webdesign
-
-byte
-
-- Hardwarewartung
 
 ## Besprechung 20. Juli 2010
 

@@ -1,0 +1,16 @@
+# Censorship methods
+
+to be split by category (censorship methods/unlock methods/...)
+
+- Anon Delivers (Token -> 4chan) (URL-Filter)
+- Record Breaker (Fefe-Headline (DNS Sperre))
+- Mantrain (SSH-Verbindung: Passwort verlieren per MITM unterbinden)
+- Ferengi (Zensur deaktivierecn durch Port Knocking) (Piktogramm: Nog am Safe)
+- Transmission Received (Einen Hash eines Torrent im Tracker sperren)
+- ? (Zeitbasierte Fenster, nur einmal alle 10 Minuten ist eine Minute offen)
+- ? (RST injecten in Richtung Client)
+- ? (RST injecten in beide Richtungen)
+- ? (Stringmatch in Netfilter, Badword muss per Jabber übertragen werden. Lösung: Mit Entities escapen, tarpitten statt droppen?)
+- ? (HTTP-Wortfilter)
+- ? (Tunnelzugangsdaten/Tunnelsoftware im Git-Repo muss gezogen werden, Repo lässt nur git-archive durch)
+- ? (IRC ist geblockt und auf irgendeinem Netzwerk ist ein Bot der den Token preisgibt)

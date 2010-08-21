@@ -1,0 +1,10 @@
+Problem: We basicly provide a proxy that could be abused
+
+
+* Blacklisted protocols/ports
+ * SMTP (Spam)
+ * IRC
+ * BitTorrent
+* Registration required
+* Route through Tor?
+* Limit bandwith/rate?

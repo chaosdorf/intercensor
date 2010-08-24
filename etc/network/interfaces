@@ -1,0 +1,15 @@
+# This file describes the network interfaces available on your system
+# and how to activate them. For more information, see interfaces(5).
+
+# The loopback network interface
+auto lo
+iface lo inet loopback
+	post-up for i in $(seq 0 99); do ip addr add 192.168.$i.1/32 dev lo; done
+
+auto ext
+iface ext inet dhcp
+
+auto int
+iface int inet static
+	address 10.253.178.1
+	netmask 255.255.255.0

@@ -1,0 +1,13 @@
+Listen 10.253.178.1:80
+<VirtualHost 10.253.178.1:80>
+    DocumentRoot /opt/intercensor/webif/htdocs
+    ServerName webif
+
+    <Location />
+        Allow from all
+        Order allow,deny
+    </Location>
+</VirtualHost>
+
+Include /opt/intercensor/challenges/01recordbreaker/apache2.conf
+Include /opt/intercensor/challenges/99shutdown/apache2.conf

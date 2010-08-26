@@ -4,7 +4,7 @@
 
 body {
 background-color: #f4f1ee;
-color:#949494; 
+color:#696969; 
 }
 
 a {
@@ -200,10 +200,10 @@ margin: 2px auto;
 
 
 .nav ul li a img {
-filter:alpha(opacity=15);
--moz-opacity:0.15;
--khtml-opacity: 0.15;
-opacity: 0.15;
+filter:alpha(opacity=25);
+-moz-opacity:0.25;
+-khtml-opacity: 0.25;
+opacity: 0.25;
 }
 
 .nav ul li a:hover img {
@@ -229,7 +229,7 @@ label {
 font:10pt Georgia, "Times New Roman", Times, serif;
 font-style:italic;
 display:block;
-color:#666;
+color:#696969;
 }
 
 input.text {
@@ -323,7 +323,7 @@ font-size:10pt;
  */
 
 .footer {
-padding:25px 0;
+padding:5px 0px 5px 10px;
 color:#818180;
 font-size:10pt;
 }

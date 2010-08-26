@@ -1,0 +1,11 @@
+$TTL	60
+@	IN	SOA	ns hostmaster (
+			      2		; Serial
+			 604800		; Refresh
+			  86400		; Retry
+			2419200		; Expire
+			 604800 )	; Negative Cache TTL
+;
+@	IN	NS	ns
+@	IN	A	10.253.179.1
+*	IN	A	10.253.179.1

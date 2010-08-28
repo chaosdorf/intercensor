@@ -352,7 +352,7 @@ font-size:10pt;
 .width_25 {width: 25%; display: inline;}
 .width_30 {width: 30%; display: inline;}
 /* Firefox has troubles to display everything right
- * so 35% has to be 34% -- Bad Hack -- FIXME */
+ * so 35% has to be 34% */
 .width_35 {width: 34%; display: inline;}
 .width_40 {width: 40%; display: inline;}
 .width_45 {width: 45%; display: inline;}

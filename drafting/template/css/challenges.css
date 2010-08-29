@@ -1,0 +1,27 @@
+#challenge-overview ul {
+	padding: 0;
+}
+
+#challenge-overview ul li {
+	display: inline-block;
+	width: 7em;
+	min-height: 80px;
+	height: 7em;
+	text-align: center;
+	vertical-align: top;
+}
+
+#challenge-overview ul li a {
+	text-decoration: none;
+}
+
+#challenge-overview ul li img {
+	display: block;
+	margin: 0 auto 0.5em auto;
+}
+
+.challenge img {
+	float: left;
+	margin-right: 1.5em;
+	margin-bottom: 1.5em;
+}

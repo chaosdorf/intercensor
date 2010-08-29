@@ -4,11 +4,5 @@
 @import url(infobox.css);
 @import url(latestchallenges.css);
 @import url(forms.css);
-
-.challenge img {
-	float: left;
-	margin-right: 1.5em;
-	margin-bottom: 1.5em;
-}
-
+@import url(challenges.css);
 

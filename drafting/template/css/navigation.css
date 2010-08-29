@@ -1,0 +1,35 @@
+#navigation {
+	padding: 0;
+	margin: 0;
+}
+
+#navigation li {
+	display: inline;
+}
+
+#navigation a {
+	display: inline-block;
+	min-width: 32px;
+	padding: 32px 1px 0 1px;
+	text-align: center;
+	margin: 1em;
+
+	background: no-repeat top center;
+
+	text-decoration: none;
+	font-weight: bold;
+	font-style: italic;
+
+	opacity: 0.4;
+}
+
+#navigation a:hover, #navigation a:focus, #navigation a.nav-selected {
+	opacity: 1;
+}
+
+#navigation a#nav-dashboard  { background-image: url(../images/menu/dashboard.png); }
+#navigation a#nav-challenges { background-image: url(../images/menu/challenges.png); }
+#navigation a#nav-statistics { background-image: url(../images/menu/statistics.png); }
+#navigation a#nav-options    { background-image: url(../images/menu/options.png); }
+#navigation a#nav-logout     { background-image: url(../images/menu/logout.png); }
+

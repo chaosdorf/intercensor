@@ -38,6 +38,7 @@ Censorship method: DNS filter<br />
 Designated bypass method: Switching to another DNS server<br />
 
 Hints:
+
 * What's in a name?
 
 ## Mantrain

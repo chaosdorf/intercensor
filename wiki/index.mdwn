@@ -1,34 +1,8 @@
-# Zensurbox 2.0
+# Intercensor
 
-## Konzept
+Intercensor is a censorship bypass game in development. If you are interested
+in helping, you can contact us via IRC. We lurk in the channel #intercensor on
+irc.oftc.net
 
-- achievements instead of levels
-- automatic verification of solutions
-- useraccounts and login
-- high score
-- global stats (who solved which achievements)
-
-## Technik
-
-- webfrontend in python (perl?) with sqlite (?) backend
-- Debian Squeeze
-- BIND, Apache, ferm, conntrack, ISC DHCP server
-
-## Einführungshinweise
-
-- you often don't need VPN, it'll ruin the fun
-- you might need to use sniffers
-
-## Weitere Ideen
-
-- Website: zensurbox.chaosdorf.de (Trac?)
-
-## Besprechung 20. Juli 2010
-
-- Trac auf chaosdorf.de einrichten
-- Projekt in Englisch
-- Design Mac/Roundcube-artig
-- Lizenz: ISC
-
-
+[[stuff]]
 [[sitemap]]

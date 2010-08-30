@@ -1,0 +1,32 @@
+# Zensurbox 2.0
+
+## Konzept
+
+- achievements instead of levels
+- automatic verification of solutions
+- useraccounts and login
+- high score
+- global stats (who solved which achievements)
+
+## Technik
+
+- webfrontend in python (perl?) with sqlite (?) backend
+- Debian Squeeze
+- BIND, Apache, ferm, conntrack, ISC DHCP server
+
+## Einführungshinweise
+
+- you often don't need VPN, it'll ruin the fun
+- you might need to use sniffers
+
+## Weitere Ideen
+
+- Website: zensurbox.chaosdorf.de (Trac?)
+
+## Besprechung 20. Juli 2010
+
+- Trac auf chaosdorf.de einrichten
+- Projekt in Englisch
+- Design Mac/Roundcube-artig
+- Lizenz: ISC
+

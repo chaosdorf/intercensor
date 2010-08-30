@@ -1,0 +1,1 @@
+[[!map pages="* and !*/entry/* and !Makefile and !favicon.ico and !helpers/* and !wikiicons/* and !*.css"]]

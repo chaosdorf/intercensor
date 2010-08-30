@@ -1,16 +1,64 @@
 # Censorship methods
 
-to be split by category (censorship methods/unlock methods/...)
+* HTTP URL filter
+* DNS filter
+* Block a hash in a Torrent tracker
+* Open a window only every 10 minutes
+* Inject RST to the client
+* Inject RST in both directions
+* Drop packets containing specific strings
+* HTTP keyword filter
+* Git: block a given object or block packs and allow archive
+* Something with IRC
 
-- Anon Delivers (Token -> 4chan) (URL-Filter)
-- Record Breaker (Fefe-Headline (DNS Sperre))
-- Mantrain (SSH-Verbindung: Passwort verlieren per MITM unterbinden)
-- Ferengi (Zensur deaktivierecn durch Port Knocking) (Piktogramm: Nog am Safe)
-- Transmission Received (Einen Hash eines Torrent im Tracker sperren)
-- ? (Zeitbasierte Fenster, nur einmal alle 10 Minuten ist eine Minute offen)
-- ? (RST injecten in Richtung Client)
-- ? (RST injecten in beide Richtungen)
-- ? (Stringmatch in Netfilter, Badword muss per Jabber übertragen werden. Lösung: Mit Entities escapen, tarpitten statt droppen?)
-- ? (HTTP-Wortfilter)
-- ? (Tunnelzugangsdaten/Tunnelsoftware im Git-Repo muss gezogen werden, Repo lässt nur git-archive durch)
-- ? (IRC ist geblockt und auf irgendeinem Netzwerk ist ein Bot der den Token preisgibt)
+# Bypass methods
+
+* DNS tunnel
+* HTTP tunnel
+* SSH tunnel
+* VPN (plant VPN keys somewhere on the event)
+* Escape badword (against string matching on Layer 3)
+
+# Challenges
+
+## Anon delivers
+
+Assignment: Create a new thread on 4chan's /b/ containing the token and an Intercensor advertisement
+You get: Token
+You give: URL to the thread
+Censorship method: ?
+Designated bypass method: ?
+
+## Record Breaker
+
+Assignment: Read newest headline on Fefe's Blog
+You get: -
+You give: Text of the newest headline
+Censorship method: DNS filter
+Designated bypass method: Switching to another DNS server
+
+## Mantrain
+
+Assignment: Connect to an SSH server without losing your password to MITM
+You get: Password (token)
+You give: ?
+Censorship method: **This is not about censorship! Drop this challenge?**
+Designated bypass method: ?
+
+## Ferengi (change this name)
+
+Assignment: ?
+You get: ?
+You give: ?
+Censorship method: ?
+Designated bypass method: Disable censorship by port knocking
+
+## Transmission Received
+
+Yes, this is named after the infamous achievement in Valve's Portal. We love the game.
+
+Assignment: Download a torrent
+You get: Torrent file
+You give: Downloaded data or its checksum
+Censorship method: Block one hash of the data in the tracker
+Designated bypass method: use DHT (tracklerless torrent stuff)

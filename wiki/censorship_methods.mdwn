@@ -23,42 +23,42 @@
 
 ## Anon delivers
 
-Assignment: Create a new thread on 4chan's /b/ containing the token and an Intercensor advertisement
-You get: Token
-You give: URL to the thread
-Censorship method: ?
-Designated bypass method: ?
+Assignment: Create a new thread on 4chan's /b/ containing the token and an Intercensor advertisement<br />
+You get: Token<br />
+You give: URL to the thread<br />
+Censorship method: ?<br />
+Designated bypass method: ?<br />
 
 ## Record Breaker
 
-Assignment: Read newest headline on Fefe's Blog
-You get: -
-You give: Text of the newest headline
-Censorship method: DNS filter
-Designated bypass method: Switching to another DNS server
+Assignment: Read newest headline on Fefe's Blog<br />
+You get: -<br />
+You give: Text of the newest headline<br />
+Censorship method: DNS filter<br />
+Designated bypass method: Switching to another DNS server<br />
 
 ## Mantrain
 
-Assignment: Connect to an SSH server without losing your password to MITM
-You get: Password (token)
-You give: ?
-Censorship method: **This is not about censorship! Drop this challenge?**
-Designated bypass method: ?
+Assignment: Connect to an SSH server without losing your password to MITM<br />
+You get: Password (token)<br />
+You give: ?<br />
+Censorship method: **This is not about censorship! Drop this challenge?**<br />
+Designated bypass method: ?<br />
 
 ## Ferengi (change this name)
 
-Assignment: ?
-You get: ?
-You give: ?
-Censorship method: ?
-Designated bypass method: Disable censorship by port knocking
+Assignment: ?<br />
+You get: ?<br />
+You give: ?<br />
+Censorship method: ?<br />
+Designated bypass method: Disable censorship by port knocking<br />
 
 ## Transmission Received
 
 Yes, this is named after the infamous achievement in Valve's Portal. We love the game.
 
-Assignment: Download a torrent
-You get: Torrent file
-You give: Downloaded data or its checksum
-Censorship method: Block one hash of the data in the tracker
-Designated bypass method: use DHT (tracklerless torrent stuff)
+Assignment: Download a torrent<br />
+You get: Torrent file<br />
+You give: Downloaded data or its checksum<br />
+Censorship method: Block one hash of the data in the tracker<br />
+Designated bypass method: use DHT (tracklerless torrent stuff)<br />

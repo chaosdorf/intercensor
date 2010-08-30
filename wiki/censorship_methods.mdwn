@@ -37,6 +37,9 @@ You give: Text of the newest headline<br />
 Censorship method: DNS filter<br />
 Designated bypass method: Switching to another DNS server<br />
 
+Hints:
+* What's in a name?
+
 ## Mantrain
 
 Assignment: Connect to an SSH server without losing your password to MITM<br />

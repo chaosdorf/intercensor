@@ -9,5 +9,21 @@ Listen 10.253.178.1:80
     </Location>
 </VirtualHost>
 
+
+
+<Macro ChallengeVHost $id $name>
+    Listen 192.168.$id.1:80
+
+    <VirtualHost 192.168.$id.1:80>
+        DocumentRoot /opt/intercensor/challenges/$id$name/htdocs
+        ServerName $name
+
+        <Location />
+            Allow from all
+            Order allow,deny
+        </Location>
+    </VirtualHost>
+</Macro>
+
 Include /opt/intercensor/challenges/01recordbreaker/apache2.conf
 Include /opt/intercensor/challenges/99shutdown/apache2.conf

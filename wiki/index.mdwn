@@ -6,3 +6,5 @@ irc.oftc.net
 
 [[stuff]]
 [[sitemap]]
+
+[web interface templates](http://penma.de/extercensor)

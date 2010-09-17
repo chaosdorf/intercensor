@@ -26,7 +26,7 @@
 Assignment: Create a new thread on 4chan's /b/ containing the token and an Intercensor advertisement<br />
 You get: Token<br />
 You give: URL to the thread<br />
-Censorship method: ?<br />
+Censorship method: HTTP URL filter on 4chan.org<br />
 Designated bypass method: ?<br />
 
 ## Record Breaker
@@ -36,6 +36,14 @@ You get: -<br />
 You give: Text of the newest headline<br />
 Censorship method: DNS filter<br />
 Designated bypass method: Switching to another DNS server<br />
+
+## Jabber-box
+
+Assignment: Talk to Jabber bot to convert given token into answer token<br />
+You get: Token<br />
+You give: Answer token<br />
+Censorship method: Netfilter string match<br />
+Designated bypass method: XML entity escaping<br />
 
 Hints:
 

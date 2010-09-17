@@ -1,11 +1,13 @@
 HMAC SHA512, the user id is the content
 
 In Python:
+
     import hashlib
     import hmac
     hmac.new(shared_secret, str(user_id), hashlib.sha512).hexdigest()
 
 In Perl:
+
     use Digest::SHA qw(hmac_sha512_hex);
     hmac_sha512_hex($user_id, $shared_secret);
 

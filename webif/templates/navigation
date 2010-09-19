@@ -1,0 +1,7 @@
+<ul id="navigation">
+	<li><a href="#" id="nav-dashboard" class="nav-selected">Dashboard</a></li>
+	<li><a href="#" id="nav-challenges">Challenges</a></li>
+	<li><a href="#" id="nav-statistics">Statistics</a></li>
+	<li><a href="#" id="nav-options"   >Options</a></li>
+	<li><a href="#" id="nav-logout"    >Logout</a></li>
+</ul>

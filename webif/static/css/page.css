@@ -1,0 +1,51 @@
+html {
+	background: #f4f1ee;
+	margin: 0;
+	padding: 0;
+}
+
+body {
+	background: #ffffff;
+	border: 2px solid #f8f8f8;
+	border-top: none;
+	margin: 0 auto;
+	padding: 1em;
+	width: 70%;
+	min-width: 900px;
+
+	font-family: sans-serif;
+	line-height: 1.25;
+	color: #505050;
+}
+
+a                { color: #646e2f; }
+a:hover, a:focus { color: #000000; }
+
+#attribution {
+	margin-top: 1em;     /* extra 1em so the element still takes up enough space */
+	margin-bottom: -3em; /* move down -3em+1em = 2em */
+}
+
+/* extrapages (login, register, about) */
+
+body.extrapage {
+	min-width: 500px;
+	width: 50%;
+	margin-top: 2em;
+
+	-moz-border-radius: 5px;
+	     border-radius: 5px;
+	border: 1px solid #f8f8f8;
+}
+
+body.extrapage h1 {
+	font-size: 125%;
+}
+
+body.extrapage form {
+	padding-bottom: 1em;
+	padding-top: 1em;
+
+	border-top: 3px solid #eeeeee;
+	margin-top: 1em;
+}

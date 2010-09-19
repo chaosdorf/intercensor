@@ -1,0 +1,51 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-Type" content=
+"text/html; charset=utf-8" />
+<title>{% block title %}{% endblock %}</title>
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/intercensor.css') }}" />
+</head>
+<body>
+
+{% set navigation_bar = ['dashboard', 'challenges', 'logout'] %}
+
+<ul id="navigation">
+    {% for x in navigation_bar %}
+       {% if x == active_page %}
+    	<li><a href="{{ url_for(x) }}" id="nav-{{ x }}" class="nav-selected">{{ x|capitalize }}</a></li>
+       {% else %}
+	<li><a href="{{ url_for(x) }}" id="nav-{{ x }}">{{ x|capitalize }}</a></li>
+       {% endif %}
+    {% endfor %}
+</ul>
+
+<div class="maincol maincol-left">
+{% block content %} {% endblock %}
+</div>
+
+<div class="maincol maincol-right">
+	<div class="mainbox" id="status">
+		<h2>Status</h2>
+		<p class="infobox notice">You are currently playing the <em>Ferengi</em> level.</p>
+		<p class="infobox success">You are now logged in as <em>Bernd</em>.</p>
+	</div>
+
+	<div class="mainbox" id="latest-challenges">
+		<h2>Latest challenges</h2>
+
+		<h3>Injection</h3>
+		<img src="{{ url_for('static', filename='images/achievements/injection_32.png') }}" alt="[Challenge icon]" />
+		<address>2010-12-31</address>
+
+		<h3>Record Breaker</h3>
+		<img src="{{ url_for('static', filename='images/achievements/tape_32.png') }}" alt="[Challenge icon]" />
+		<address>2010-12-30</address>
+	</div>
+</div>
+
+<address id="attribution">Intercensor Project created by the <a href="#">Intercensor Team</a></address>
+
+</body>
+</html>

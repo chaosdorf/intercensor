@@ -1,0 +1,52 @@
+/* lines after each challenge */
+.challenge-overview .challenge {
+	border-top: 1px dashed #cccccc;
+	clear: left;
+}
+
+/* no line above first challenge */
+.challenge-overview h2 + .challenge {
+	border-top: none;
+}
+
+.challenge-overview .challenge:last-child:after {
+	clear: left;           /* make sure the box encloses the last item completely */
+	display: block;
+	margin: 0 0 -1em 0;    /* and eliminate the double whitespace */
+	content: "";           /* dummy content to make sure the box is generated and layouted */
+}
+
+.challenge-overview h3 {
+	margin-bottom: 0.25em; /* not much space needed because this is outside normal text */
+	text-indent: 64px;     /* for challenge icon */
+	padding-left: 0.5em;   /* space between image and text */
+	font-size: 1em;
+}
+.challenge-overview img {
+	float: left;
+	margin-top: -1.25em;  /* 1em for heading height + 0.25em margin-bottom */
+	margin-right: 0.5em;
+	margin-bottom: 1em;
+}
+
+.challenge-overview h3 + img + p {
+	margin-top: 0;
+}
+
+/* always position the text next to the image */
+.challenge-overview .challenge p {
+	margin-left: 64px;
+	padding-left: 0.5em;
+}
+
+.challenge-overview .challenge a {
+	text-decoration: none;
+}
+
+/* for challenge box on main page - move to other file? */
+
+#current-challenge.challenge img {
+	float: left;
+	margin-right: 1.5em;
+	margin-bottom: 1.5em;
+}

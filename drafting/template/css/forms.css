@@ -12,7 +12,7 @@ input {
 	-moz-border-radius: 5px;
 }
 
-input[type=text] {
+input[type=text], input[type=password] {
 	background: #f7f7f7;
 	border: 1px solid #cccccc;
 

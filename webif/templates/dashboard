@@ -2,10 +2,10 @@
 {% set active_page = "dashboard" %}
 {% block title %}Dashboard{% endblock %}
 {% block content %}
-                {% if current_challenge %}
+                {% if g.challenge %}
 	        <div class="mainbox challenge" id="current-challenge">
 
-		<h2>Your current challenge: <strong>{{ current_challenge.name }}</strong></h2>
+		<h2>Your current challenge: <strong>{{ g.challenge.name }}</strong></h2>
                 <img src="{{ url_for('static', filename='images/achievements/vendetta.png') }}" alt="[Challenge icon]" />
 		<p>Here is some text which describes the current challenge in sufficient
 		length that this space can be completely flooded with useless blindtext.</p>

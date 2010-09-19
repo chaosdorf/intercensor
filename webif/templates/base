@@ -28,8 +28,10 @@
 <div class="maincol maincol-right">
 	<div class="mainbox" id="status">
 		<h2>Status</h2>
-		<p class="infobox notice">You are currently playing the <em>Ferengi</em> level.</p>
-		<p class="infobox success">You are now logged in as <em>Bernd</em>.</p>
+                {% if g.challenge %}
+		<p class="infobox notice">You are currently playing the <em>{{ g.challenge.name }}</em> level.</p>
+                {% endif %}
+		<p class="infobox success">You are now logged in as <em>{{ g.user.name }}</em>.</p>
 	</div>
 
 	<div class="mainbox" id="latest-challenges">

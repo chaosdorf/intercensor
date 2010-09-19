@@ -73,6 +73,11 @@ def login_required(f):
 
     return decorated_function
 
+@app.before_request
+def before_request():
+    if "user_id" in session:
+        g.user = sa_session.query(User).one()
+        g.challenge = g.user.current_challenge()
 
 @app.route("/")
 def index():
@@ -124,8 +129,7 @@ def logout():
 @app.route("/dashboard")
 @login_required
 def dashboard():
-    user = sa_session.query(User).one()
-    return render_template("dashboard", current_challenge=user.current_challenge())
+    return render_template("dashboard")
 
 if __name__ == "__main__":
     app.run()

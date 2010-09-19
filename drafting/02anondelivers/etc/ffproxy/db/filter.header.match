@@ -1,0 +1,11 @@
+# db/filter.header.match
+#
+# put header entries to remove here
+# use filter.header.add to add custom entries
+# use filter.header.entry to remove entries without regular expressions
+# empty lines and lines starting with # are ignored
+# regular expression matching is performed here
+#
+# Examples:
+#\*/\*
+#iso-8859-([1-9]|1[0-4])

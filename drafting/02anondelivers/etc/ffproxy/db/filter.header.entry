@@ -1,0 +1,23 @@
+# db/filter.header.entry
+#
+# put header entries to remove here
+# use filter.header.add to add custom entries
+# use filter.header.match to remove entries via regular expressions
+# empty lines and lines starting with # are ignored
+# string matching is performed here (case insensitive)
+#
+# Examples:
+#Accept-Language:
+#User-Agent:
+#From:
+#
+# Prohibit cookie usage:
+#Set-Cookie:
+#Cookie:
+#
+# The following entries should always be used:
+Accept-Encoding:
+Accept:
+Connection:
+Proxy-Connection:
+Host:

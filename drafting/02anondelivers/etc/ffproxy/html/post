@@ -1,0 +1,16 @@
+HTTP/1.1 400 ERROR
+Connection: close
+Content-Type: text/html; charset=iso-8859-1
+
+<html>
+<head>
+<title>Error: Unable to post data</title>
+</head>
+<body>
+<h1>Error</h1>
+<p>
+<b>Your request to post data to $h failed, unable to post data</b>
+<p>
+<em>URL: $u</em>
+</body>
+</html>

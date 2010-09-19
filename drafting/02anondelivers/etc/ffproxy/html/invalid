@@ -1,0 +1,14 @@
+HTTP/1.1 400 ERROR
+Connection: close
+Content-Type: text/html; charset=iso-8859-1
+
+<html>
+<head>
+<title>Error: Invalid request</title>
+</head>
+<body>
+<h1>Error</h1>
+<p>
+<b>Your browser sent an invalid request</b>
+</body>
+</html>

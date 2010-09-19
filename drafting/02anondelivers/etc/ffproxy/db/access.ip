@@ -1,0 +1,7 @@
+# db/access.ip
+#
+# put IPv4 and IPv6 addresses allowed to connect here
+# empty lines and lines starting with # are ignored
+# regular expression matching is used here
+#
+.*

@@ -1,0 +1,14 @@
+HTTP/1.1 503 ERROR
+Connection: close
+Content-Type: text/html; charset=iso-8859-1
+
+<html>
+<head>
+<title>Error: Unable to connect to server</title>
+</head>
+<body>
+<h1>Error</h1>
+<p>
+<b>Unable to connect to server $h</b>
+</body>
+</html>

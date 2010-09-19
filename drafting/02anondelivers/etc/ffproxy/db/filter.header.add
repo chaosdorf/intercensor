@@ -1,0 +1,13 @@
+# db/filter.header.add
+#
+# put header entries to add to outgoing headers here
+# use db/filter.header.entry to delete header entries via string matching
+# use db/filter.header.match to delete header entries via regular expressions
+# empty lines and lines starting with # are ignored
+#
+# Examples:
+#User-Agent: Mozilla/4.0 (4.0; BarOS; BazCompatible; QuxExtension; QuuxDumb)
+#
+# The following entries should always be used:
+Connection: close
+Proxy-Connection: close

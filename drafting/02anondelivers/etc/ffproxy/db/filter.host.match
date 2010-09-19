@@ -1,0 +1,8 @@
+# db/filter.host.match
+#
+# put hosts disallowed connecting to here
+# empty lines and lines starting with # are ignored
+# regular expression matching is used,
+# hostnames are converted to lower case before matching
+
+(^|\.)4chan\.org$

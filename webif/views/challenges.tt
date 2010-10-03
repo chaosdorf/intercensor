@@ -1,5 +1,27 @@
-<h2>It Works!</h2>
+<div class="mainbox challenge-overview">
+    <h2>Unsolved challenges</h2>
 
-<p>
-I'm in <code>/home/mxey/intercensor/webif/views/index.tt</code>
-</p>
+    [% FOREACH c in challenges %]
+    <div class="challenge">
+        <h3><a href="/challenge/[% c.key %]">[% c.value.name %]</a></h3>
+        <a href="/challenge/[% c.key %]">
+            <img src="images/challenges/unsolved/[% c.key %].png" alt="[% c.value.name %]" />
+        </a>
+        [% c.value.description %]
+    </div>
+    [% END %]
+</div>
+
+<div class="mainbox challenge-overview">
+    <h2>Solved challenges</h2>
+
+    [% FOREACH c in challenges %]
+    <div class="challenge">
+        <h3><a href="/challenge/[% c.key %]">[% c.value.name %]</a></h3>
+        <a href="/challenge/[% c.key %]">
+            <img src="images/challenges/solved/[% c.key %].png" alt="[% c.value.name %]" />
+        </a>
+        [% c.value.description %]
+    </div>
+    [% END %]
+</div>

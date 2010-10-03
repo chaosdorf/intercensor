@@ -123,7 +123,9 @@ get '/dashboard' => sub {
 };
 
 get '/challenges' => sub {
-    template challenges => {};
+    template challenges => {
+        challenges => \%challenges,
+    };
 };
 
 get '/' => sub {

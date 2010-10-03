@@ -3,17 +3,30 @@ use Dancer ':syntax';
 use Crypt::Eksblowfish::Bcrypt qw(bcrypt_hash en_base64);
 use Dancer::Plugin::Database;
 use Data::Random qw(rand_chars);
+use YAML::Any qw(LoadFile);
 
 our $VERSION = '0.1';
+
+my %challenges = %{ LoadFile('challenges.yml') };
 
 sub gensalt {
     return join(q{}, rand_chars(set => 'all', size => 16));
 }
 
 before sub {
-    if (!session->{user_id} && request->path_info !~ m{^/(register|login)/?$}) {
+    if (!session->{user} && request->path_info !~ m{^/(register|login)/?$}) {
         redirect '/login';
     }
+
+    # XXX: should not be hardcoded
+    var challenge => $challenges{'01recordbreaker'};
+};
+
+before_template sub {
+    my($tokens) = @_;
+    $tokens->{challenge} = vars->{challenge};
+    my @path = split(qr{/}, request->path);
+    $tokens->{page} = $path[1];
 };
 
 get '/login' => sub {
@@ -34,7 +47,10 @@ post '/login' => sub {
         }, params->{password}));
 
         if ($row->{password} eq $hash) {
-            session user_id => $row->{id};
+            session user => {
+                name => params->{username},
+                id => $row->{id},
+            };
             redirect '/';
             return;
         }
@@ -46,7 +62,7 @@ post '/login' => sub {
 };
 
 get '/logout' => sub {
-    session user_id => undef;
+    session user => undef;
     redirect '/';
 };
 
@@ -102,8 +118,16 @@ post '/register' => sub {
     }
 };
 
+get '/dashboard' => sub {
+    template dashboard => {};
+};
+
+get '/challenges' => sub {
+    template challenges => {};
+};
+
 get '/' => sub {
-    template 'index';
+    redirect '/dashboard';
 };
 
 true;

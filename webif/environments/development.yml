@@ -1,4 +1,5 @@
 log: debug
+logger: console
 warnings: 1
 show_errors: 1
 

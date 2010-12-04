@@ -32,7 +32,9 @@
 <div class="maincol maincol-right">
     <div class="mainbox" id="status">
         <h2>Status</h2>
+        [% IF challenge %]
         <p class="infobox notice">You are currently playing the <em>[% challenge.name %]</em> level.</p>
+        [% END %]
         <p class="infobox success">You are now logged in as <em>[% session.user.name %]</em>.</p>
     </div>
 

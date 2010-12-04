@@ -1,8 +1,10 @@
 package webif;
+use Modern::Perl;
 use Dancer ':syntax';
 use Crypt::Eksblowfish::Bcrypt qw(bcrypt_hash en_base64);
 use Dancer::Plugin::Database;
 use Data::Random qw(rand_chars);
+use IPC::System::Simple qw(capture);
 use YAML::Any qw(LoadFile);
 
 our $VERSION = '0.1';
@@ -15,11 +17,34 @@ sub gensalt {
 
 before sub {
     if (!session->{user} && request->path_info !~ m{^/(register|login)/?$}) {
-        redirect '/login';
+        return redirect '/login';
     }
 
-    # XXX: should not be hardcoded
-    var challenge => $challenges{'01recordbreaker'};
+    my $ip = request->remote_address;
+
+    my $ipsets;
+    {
+        # Workaround for https://rt.cpan.org/Public/Bug/Display.html?id=46684
+        # in IPC::System::Simple
+        local $SIG{CHLD} = 'DEFAULT';
+        $ipsets = capture('sudo', 'ipset', '-S');
+    }
+
+    my ($cid) = ($ipsets =~ /^-A (\w+) \Q$ip\E$/gms);
+
+    if ($cid) {
+        var challenge => $challenges{$cid};
+    }
+
+
+    # ? + 0 is a workaround for
+    # https://rt.cpan.org/Public/Bug/Display.html?id=29629
+    var solved_challenges => database->selectcol_arrayref(
+        'SELECT challenge FROM solved_challenges WHERE user_id = (? + 0)',
+        {},
+        session->{user}{id},
+    );
+
 };
 
 before_template sub {
@@ -123,8 +148,21 @@ get '/dashboard' => sub {
 };
 
 get '/challenges' => sub {
+    my %is_solved = map { $_ => 1 } @{ vars->{solved_challenges} };
+
+    my (%solved, %unsolved);
+    foreach (keys %challenges) {
+        if ($is_solved{$_}) {
+            $solved{$_} = $challenges{$_};
+        }
+        else {
+            $unsolved{$_} = $challenges{$_};
+        }
+    }
+
     template challenges => {
-        challenges => \%challenges,
+        solved_challenges => \%solved,
+        unsolved_challenges => \%unsolved,
     };
 };
 

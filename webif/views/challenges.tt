@@ -1,7 +1,7 @@
 <div class="mainbox challenge-overview">
     <h2>Unsolved challenges</h2>
 
-    [% FOREACH c in challenges %]
+    [% FOREACH c in unsolved_challenges %]
     <div class="challenge">
         <h3><a href="/challenge/[% c.key %]">[% c.value.name %]</a></h3>
         <a href="/challenge/[% c.key %]">
@@ -15,7 +15,7 @@
 <div class="mainbox challenge-overview">
     <h2>Solved challenges</h2>
 
-    [% FOREACH c in challenges %]
+    [% FOREACH c in solved_challenges %]
     <div class="challenge">
         <h3><a href="/challenge/[% c.key %]">[% c.value.name %]</a></h3>
         <a href="/challenge/[% c.key %]">

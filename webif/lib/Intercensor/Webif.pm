@@ -1,5 +1,6 @@
 package Intercensor::Webif;
 use Modern::Perl;
+use autodie ':all';
 use Dancer ':syntax';
 use Crypt::Eksblowfish::Bcrypt qw(bcrypt_hash en_base64);
 use Dancer::Plugin::Database;
@@ -204,6 +205,31 @@ get '/challenge/:id' => sub {
             challenge => $c,
             page_title => $c->name . ' Challenge',
         };
+    }
+    else {
+        status 'not_found';
+        return 'No such challenge';
+    }
+};
+
+post '/challenge/:id' => sub {
+    my $c = $challenges{ params->{id} };
+
+    if ($c) {
+        {
+            # Workaround for
+            # https://rt.cpan.org/Public/Bug/Display.html?id=46684 in
+            # IPC::System::Simple
+            local $SIG{CHLD} = 'DEFAULT';
+
+            if (vars->{current_challenge}) {
+                system('sudo', 'ipset', '-D', vars->{current_challenge}->id,
+                       request->remote_address);
+            }
+
+            system('sudo', 'ipset', '-A', $c->id, request->remote_address);
+        }
+        redirect '/dashboard';
     }
     else {
         status 'not_found';

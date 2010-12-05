@@ -20,4 +20,8 @@ sub description {
     resulting thread</p>';
 }
 
+sub verify_answer {
+    1;
+}
+
 1;

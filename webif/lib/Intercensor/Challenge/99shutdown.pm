@@ -16,4 +16,8 @@ sub description {
     can you still make it?</p>';
 }
 
+sub verify_answer {
+    0;
+}
+
 1;

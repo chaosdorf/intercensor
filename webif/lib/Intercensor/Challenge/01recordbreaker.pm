@@ -19,4 +19,8 @@ sub description {
     us.</p>';
 }
 
+sub verify_answer {
+    0;
+}
+
 1;

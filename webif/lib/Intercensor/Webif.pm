@@ -6,6 +6,7 @@ use Crypt::Eksblowfish::Bcrypt qw(bcrypt_hash en_base64);
 use Dancer::Plugin::Database;
 use Data::Random qw(rand_chars);
 use IPC::System::Simple qw(capture);
+use POSIX qw(strftime);
 
 use Module::Pluggable
     search_path => ['Intercensor::Challenge'],
@@ -18,6 +19,18 @@ my %challenges = map { $_->id => $_ } __PACKAGE__->challenges();
 
 sub gensalt {
     return join(q{}, rand_chars(set => 'all', size => 16));
+}
+
+sub stop_challenge {
+    # Workaround for
+    # https://rt.cpan.org/Public/Bug/Display.html?id=46684 in
+    # IPC::System::Simple
+    local $SIG{CHLD} = 'DEFAULT';
+
+    if (vars->{current_challenge}) {
+        system('sudo', 'ipset', '-D', vars->{current_challenge}->id,
+               request->remote_address);
+    }
 }
 
 before sub {
@@ -65,7 +78,7 @@ before_template sub {
         my $id = $row->{cid};
         push @latest_challenges, {
             id => $id,
-            solved_at => $row->{solved_at},
+            solved_at => strftime('%c', localtime($row->{solved_at})),
             name => $challenges{$id}->name,
         };
     }
@@ -235,18 +248,42 @@ post '/challenge/:id/stop' => sub {
     my $c = $challenges{ params->{id} };
 
     if ($c) {
-        {
-            # Workaround for
-            # https://rt.cpan.org/Public/Bug/Display.html?id=46684 in
-            # IPC::System::Simple
-            local $SIG{CHLD} = 'DEFAULT';
-
-            if (vars->{current_challenge}) {
-                system('sudo', 'ipset', '-D', vars->{current_challenge}->id,
-                       request->remote_address);
-            }
-        }
+        stop_challenge;
         redirect '/challenges';
+    }
+    else {
+        status 'not_found';
+        return 'No such challenge';
+    }
+};
+
+post '/challenge/:id/solve' => sub {
+    my $c = $challenges{ params->{id} };
+
+    if ($c) {
+        my $a = params->{answer};
+
+        if ($c->verify_answer($a)) {
+            # XXX: another creepy +0 workaround…
+            database->do('INSERT INTO solved_challenges
+                     (user_id, challenge, solved_at)
+                     VALUES (?+0, ?, ?)',
+                     {},
+                     session->{user}{id},
+                     $c->id,
+                     time(),
+            );
+            stop_challenge();
+            redirect '/challenges';
+        }
+        else {
+            return template challenge => {
+                challenge => $c,
+                page_title => $c->name . ' Challenge',
+                error => 'Your answer is wrong',
+            };
+        }
+
     }
     else {
         status 'not_found';

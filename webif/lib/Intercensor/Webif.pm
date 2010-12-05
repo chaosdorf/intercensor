@@ -157,12 +157,16 @@ post '/register' => sub {
         session user_id => database->sqlite_last_insert_rowid();
         redirect '/';
     } else {
-        template 'register', { errors => \@errors }, { layout => undef };
+        template 'register', {
+            errors => \@errors,
+        }, { layout => undef };
     }
 };
 
 get '/dashboard' => sub {
-    template dashboard => {};
+    template dashboard => {
+        page_title => 'Dashboard',
+    };
 };
 
 get '/challenges' => sub {
@@ -188,6 +192,7 @@ get '/challenges' => sub {
     template challenges => {
         solved_challenges => \%solved,
         unsolved_challenges => \%unsolved,
+        page_title => 'Challenges',
     };
 };
 
@@ -197,6 +202,7 @@ get '/challenge/:id' => sub {
     if ($c) {
         return template challenge => {
             challenge => $c,
+            page_title => $c->name . ' Challenge',
         };
     }
     else {

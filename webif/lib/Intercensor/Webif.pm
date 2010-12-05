@@ -5,11 +5,15 @@ use Crypt::Eksblowfish::Bcrypt qw(bcrypt_hash en_base64);
 use Dancer::Plugin::Database;
 use Data::Random qw(rand_chars);
 use IPC::System::Simple qw(capture);
-use YAML::Any qw(LoadFile);
+
+use Module::Pluggable
+    search_path => ['Intercensor::Challenge'],
+    instantiate => 'new',
+    sub_name => 'challenges';
 
 our $VERSION = '0.1';
 
-my %challenges = %{ LoadFile('challenges.yml') };
+my %challenges = map { $_->id => $_ } __PACKAGE__->challenges();
 
 sub gensalt {
     return join(q{}, rand_chars(set => 'all', size => 16));
@@ -61,7 +65,7 @@ before_template sub {
         push @latest_challenges, {
             id => $id,
             solved_at => $row->{solved_at},
-            name => $challenges{$id}->{name},
+            name => $challenges{$id}->name,
         };
     }
 

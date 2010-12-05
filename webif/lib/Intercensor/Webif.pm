@@ -178,11 +178,9 @@ get '/challenges' => sub {
     my (%solved, %unsolved);
     foreach my $id (keys %challenges) {
         if ($is_solved{$id}) {
-            debug "solved: $id";
             $solved{$id} = $challenges{$id};
         }
         else {
-            debug "unsolved: $id";
             $unsolved{$id} = $challenges{$id};
         }
     }

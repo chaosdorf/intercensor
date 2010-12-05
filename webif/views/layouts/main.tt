@@ -10,7 +10,7 @@
 <body>
 
 <ul id="navigation">
-    [% FOREACH item IN ['dashboard', 'challenges', 'logout'] %]
+    [% FOREACH item IN ['challenges', 'logout'] %]
     <li>
         [% IF page == item %]
             <a href="/[% item %]" id="nav-[% item %]" class="nav-selected">
@@ -33,7 +33,11 @@
     <div class="mainbox" id="status">
         <h2>Status</h2>
         [% IF current_challenge %]
-        <p class="infobox notice">You are currently playing the <em>[% current_challenge.name %]</em> level.</p>
+        <p class="infobox notice">
+            You are currently playing the <a href="/challenge/[%
+            current_challenge.id %]"><em>[% current_challenge.name
+            %]</em></a> level.
+        </p>
         [% END %]
         <p class="infobox success">You are now logged in as <em>[% session.user.name %]</em>.</p>
     </div>

@@ -27,7 +27,6 @@
 	opacity: 1;
 }
 
-#navigation a#nav-dashboard  { background-image: url(../images/menu/dashboard.png); }
 #navigation a#nav-challenges { background-image: url(../images/menu/challenges.png); }
 #navigation a#nav-statistics { background-image: url(../images/menu/statistics.png); }
 #navigation a#nav-options    { background-image: url(../images/menu/options.png); }

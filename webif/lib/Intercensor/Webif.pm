@@ -164,12 +164,6 @@ post '/register' => sub {
     }
 };
 
-get '/dashboard' => sub {
-    template dashboard => {
-        page_title => 'Dashboard',
-    };
-};
-
 get '/challenges' => sub {
 
     my @rows = @{ database->selectcol_arrayref(
@@ -212,7 +206,7 @@ get '/challenge/:id' => sub {
     }
 };
 
-post '/challenge/:id' => sub {
+post '/challenge/:id/play' => sub {
     my $c = $challenges{ params->{id} };
 
     if ($c) {
@@ -229,7 +223,30 @@ post '/challenge/:id' => sub {
 
             system('sudo', 'ipset', '-A', $c->id, request->remote_address);
         }
-        redirect '/dashboard';
+        redirect '/challenge/' . $c->id;
+    }
+    else {
+        status 'not_found';
+        return 'No such challenge';
+    }
+};
+
+post '/challenge/:id/stop' => sub {
+    my $c = $challenges{ params->{id} };
+
+    if ($c) {
+        {
+            # Workaround for
+            # https://rt.cpan.org/Public/Bug/Display.html?id=46684 in
+            # IPC::System::Simple
+            local $SIG{CHLD} = 'DEFAULT';
+
+            if (vars->{current_challenge}) {
+                system('sudo', 'ipset', '-D', vars->{current_challenge}->id,
+                       request->remote_address);
+            }
+        }
+        redirect '/challenges';
     }
     else {
         status 'not_found';
@@ -238,7 +255,12 @@ post '/challenge/:id' => sub {
 };
 
 get '/' => sub {
-    redirect '/dashboard';
+    if (my $c = vars->{current_challenge}) {
+        redirect '/challenge/' . $c->id;
+    }
+    else {
+        redirect '/challenges'
+    }
 };
 
 true;

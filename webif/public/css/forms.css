@@ -32,9 +32,9 @@ input[type=submit] {
 	height: 2em;
 }
 
-/* token submission form */
+/* forms below a challenge description */
 
-.token-submission {
+.token-submission, .level-start {
 	border-top: 3px solid #cccccc;
 	margin-top: 1em;
 }

@@ -37,13 +37,13 @@ before sub {
     my ($cid) = ($ipsets =~ /^-A (\w+) \Q$ip\E$/gms);
 
     if ($cid) {
-        var challenge => $challenges{$cid};
+        var current_challenge => $challenges{$cid};
     }
 };
 
 before_template sub {
     my($tokens) = @_;
-    $tokens->{challenge} = vars->{challenge};
+    $tokens->{current_challenge} = vars->{current_challenge};
     my @path = split(qr{/}, request->path);
     $tokens->{page} = $path[1];
 
@@ -189,6 +189,20 @@ get '/challenges' => sub {
         solved_challenges => \%solved,
         unsolved_challenges => \%unsolved,
     };
+};
+
+get '/challenge/:id' => sub {
+    my $c = $challenges{ params->{id} };
+
+    if ($c) {
+        return template challenge => {
+            challenge => $c,
+        };
+    }
+    else {
+        status 'not_found';
+        return 'No such challenge';
+    }
 };
 
 get '/' => sub {

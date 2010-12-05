@@ -5,7 +5,7 @@
 <meta http-equiv="Content-Type" content=
 "text/html; charset=utf-8" />
 <title>Dashboard</title>
-<link rel="stylesheet" type="text/css" href="css/intercensor.css" />
+<link rel="stylesheet" type="text/css" href="/css/intercensor.css" />
 </head>
 <body>
 
@@ -32,8 +32,8 @@
 <div class="maincol maincol-right">
     <div class="mainbox" id="status">
         <h2>Status</h2>
-        [% IF challenge %]
-        <p class="infobox notice">You are currently playing the <em>[% challenge.name %]</em> level.</p>
+        [% IF current_challenge %]
+        <p class="infobox notice">You are currently playing the <em>[% current_challenge.name %]</em> level.</p>
         [% END %]
         <p class="infobox success">You are now logged in as <em>[% session.user.name %]</em>.</p>
     </div>
@@ -43,7 +43,7 @@
 
         [% FOREACH c in latest_challenges %]
         <h3>[% c.name %]</h3>
-        <img src="images/challenges/small/[% c.id %].png" alt="[% c.name %]" />
+        <img src="/images/challenges/small/[% c.id %].png" alt="[% c.name %]" />
         <address>[% c.solved_at %]</address>
         [% END %]
     </div>

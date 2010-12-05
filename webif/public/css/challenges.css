@@ -45,7 +45,7 @@
 
 /* for challenge box on main page - move to other file? */
 
-#current-challenge.challenge img {
+#single-challenge.challenge img {
 	float: left;
 	margin-right: 1.5em;
 	margin-bottom: 1.5em;

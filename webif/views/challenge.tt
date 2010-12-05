@@ -1,0 +1,13 @@
+<div class="mainbox challenge" id="single-challenge">
+    <h2><strong>[% challenge.name %]</strong></h2>
+
+    <img src="/images/challenges/solved/[% challenge.id %].png" 
+         alt="[% challenge.name %]" />
+    [% challenge.description %]
+
+    <form class="level-start" method="post">
+        <p>
+            <input type="submit" value="Play" />
+        </p>
+    </form>
+</div>

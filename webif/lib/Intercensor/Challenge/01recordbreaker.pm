@@ -12,11 +12,11 @@ sub name {
 }
 
 sub description {
-    '<p>Here is some text which describes <strong>RECORD BREAKER</strong>
-    length that this space can be completely flooded with useless
-    blindtext.</p> <p>It must be assumed that there is such a large amount of
-    text that it might completely overflow. Obviously the layout must not
-    break!</p>';
+    '<p>Let\'s start with something simple. "Fefe\'s Blog" is a site well-known
+    for spreading conspiracy theories and general non-conforming information.
+    Because of this, access to it is prohibited</p>
+    <p>Your task is to retrieve the latest blog headline and then give it to
+    us.</p>';
 }
 
 1;

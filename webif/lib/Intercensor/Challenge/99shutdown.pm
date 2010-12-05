@@ -12,11 +12,8 @@ sub name {
 }
 
 sub description {
-    '<p>Here is some text which describes <strong>SHUT DOWN</strong>
-    length that this space can be completely flooded with useless
-    blindtext.</p> <p>It must be assumed that there is such a large amount of
-    text that it might completely overflow. Obviously the layout must not
-    break!</p>';
+    '<p>Rien ne va plus. There are no designated solutions for this challenge.
+    can you still make it?</p>';
 }
 
 1;

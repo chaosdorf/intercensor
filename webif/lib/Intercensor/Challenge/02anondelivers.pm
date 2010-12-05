@@ -12,11 +12,12 @@ sub name {
 }
 
 sub description {
-    '<p>Here is some text which describes <strong>ANON DELIVERS</strong>
-    length that this space can be completely flooded with useless
-    blindtext.</p> <p>It must be assumed that there is such a large amount of
-    text that it might completely overflow. Obviously the layout must not
-    break!</p>';
+    '<p>Man the harpoons!<br/>
+    We have an encrypted token for you, which we need to deliver to another
+    person via the 4chan imageboard.</p>
+    <p>Your task is to plant it on <a
+    href="http://www.4chan.org/b/">4chan.org/b</a> and give us the URL to the
+    resulting thread</p>';
 }
 
 1;

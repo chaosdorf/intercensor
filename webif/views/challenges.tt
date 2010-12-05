@@ -19,7 +19,7 @@
     <div class="challenge">
         <h3><a href="/challenge/[% c.key %]">[% c.value.name %]</a></h3>
         <a href="/challenge/[% c.key %]">
-            <img src="images/challenges/solved/[% c.key %].png" alt="[% c.value.name %]" />
+            <img src="images/challenges/small/[% c.key %].png" alt="[% c.value.name %]" />
         </a>
         [% c.value.description %]
     </div>

@@ -41,13 +41,11 @@
     <div class="mainbox" id="latest-challenges">
         <h2>Latest challenges</h2>
 
-        <h3>Injection</h3>
-        <img src="images/achievements/injection_32.png" alt="[Challenge icon]" />
-        <address>2010-12-31</address>
-
-        <h3>Record Breaker</h3>
-        <img src="images/achievements/tape_32.png" alt="[Challenge icon]" />
-        <address>2010-12-30</address>
+        [% FOREACH c in latest_challenges %]
+        <h3>[% c.name %]</h3>
+        <img src="images/challenges/small/[% c.id %].png" alt="[% c.name %]" />
+        <address>[% c.solved_at %]</address>
+        [% END %]
     </div>
 </div>
 

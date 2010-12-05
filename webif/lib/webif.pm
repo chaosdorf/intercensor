@@ -35,16 +35,6 @@ before sub {
     if ($cid) {
         var challenge => $challenges{$cid};
     }
-
-
-    # ? + 0 is a workaround for
-    # https://rt.cpan.org/Public/Bug/Display.html?id=29629
-    var solved_challenges => database->selectcol_arrayref(
-        'SELECT challenge FROM solved_challenges WHERE user_id = (? + 0)',
-        {},
-        session->{user}{id},
-    );
-
 };
 
 before_template sub {
@@ -52,6 +42,30 @@ before_template sub {
     $tokens->{challenge} = vars->{challenge};
     my @path = split(qr{/}, request->path);
     $tokens->{page} = $path[1];
+
+    # ? + 0 is a workaround for
+    # https://rt.cpan.org/Public/Bug/Display.html?id=29629
+    my $res = database->selectall_arrayref(
+        'SELECT challenge AS cid, solved_at
+        FROM solved_challenges
+        WHERE user_id = (? + 0)
+        ORDER BY solved_at DESC
+        LIMIT 5',
+        { Slice => {} },
+        session->{user}{id},
+    );
+
+    my @latest_challenges;
+    foreach my $row (@$res) {
+        my $id = $row->{cid};
+        push @latest_challenges, {
+            id => $id,
+            solved_at => $row->{solved_at},
+            name => $challenges{$id}->{name},
+        };
+    }
+
+    $tokens->{latest_challenges} = \@latest_challenges;
 };
 
 get '/login' => sub {
@@ -148,15 +162,24 @@ get '/dashboard' => sub {
 };
 
 get '/challenges' => sub {
-    my %is_solved = map { $_ => 1 } @{ vars->{solved_challenges} };
+
+    my @rows = @{ database->selectcol_arrayref(
+        'SELECT challenge FROM solved_challenges
+        WHERE user_id = (? + 0)',
+        {},
+        session->{user}{id},
+    ) };
+    my %is_solved = map { $_ => 1 } @rows;
 
     my (%solved, %unsolved);
-    foreach (keys %challenges) {
-        if ($is_solved{$_}) {
-            $solved{$_} = $challenges{$_};
+    foreach my $id (keys %challenges) {
+        if ($is_solved{$id}) {
+            debug "solved: $id";
+            $solved{$id} = $challenges{$id};
         }
         else {
-            $unsolved{$_} = $challenges{$_};
+            debug "unsolved: $id";
+            $unsolved{$id} = $challenges{$id};
         }
     }
 

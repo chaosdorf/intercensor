@@ -1,5 +1,5 @@
 #!/usr/bin/env perl
 use Dancer;
 use lib path(dirname(__FILE__), 'lib');
-load_app 'webif';
+load_app 'Intercensor::Webif';
 dance;

@@ -1,4 +1,4 @@
-package webif;
+package Intercensor::Webif;
 use Modern::Perl;
 use Dancer ':syntax';
 use Crypt::Eksblowfish::Bcrypt qw(bcrypt_hash en_base64);

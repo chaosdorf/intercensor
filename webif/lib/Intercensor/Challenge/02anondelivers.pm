@@ -20,8 +20,14 @@ sub description {
     resulting thread</p>';
 }
 
+sub get_question {
+    my ($self, $user_id) = @_;
+    return $self->generate_token($user_id);
+}
+
 sub verify_answer {
-    1;
+    my ($self, $user_id, $answer) = @_;
+    return ($answer eq $self->generate_token($user_id));
 }
 
 1;

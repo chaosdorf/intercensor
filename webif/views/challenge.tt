@@ -6,6 +6,7 @@
     [% challenge.description %]
 
     [% IF challenge == current_challenge %]
+    [% IF question %]<p class="question">[% question %]</p>[% END %]
     <form class="token-submission"
           action="/challenge/[% challenge.id %]/solve" method="post">
         [% IF error %]

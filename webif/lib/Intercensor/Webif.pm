@@ -15,7 +15,7 @@ use Module::Pluggable
 
 our $VERSION = '0.1';
 
-my %challenges = map { $_->id => $_ } __PACKAGE__->challenges();
+my %challenges = map { $_->id => $_ } __PACKAGE__->challenges(config);
 
 sub gensalt {
     return join(q{}, rand_chars(set => 'all', size => 16));
@@ -208,9 +208,18 @@ get '/challenge/:id' => sub {
     my $c = $challenges{ params->{id} };
 
     if ($c) {
+
+        my $question;
+        if (defined(vars->{current_challenge}) and
+            $c == vars->{current_challenge})
+        {
+            $question = $c->get_question(session->{user}{id});
+        }
+
         return template challenge => {
             challenge => $c,
             page_title => $c->name . ' Challenge',
+            question => $question,
         };
     }
     else {
@@ -263,7 +272,7 @@ post '/challenge/:id/solve' => sub {
     if ($c) {
         my $a = params->{answer};
 
-        if ($c->verify_answer($a)) {
+        if ($c->verify_answer(session->{user}{id}, $a)) {
             # XXX: another creepy +0 workaround…
             database->do('INSERT INTO solved_challenges
                      (user_id, challenge, solved_at)

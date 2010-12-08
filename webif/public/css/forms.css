@@ -1,5 +1,9 @@
 /* generic form styles */
 
+.question {
+    font-weight: bold;
+}
+
 label {
 	font-style: italic;
 }

@@ -22,7 +22,7 @@ sub description {
 }
 
 sub verify_answer {
-    my ($self, $answer) = @_;
+    my ($self, $user_id, $answer) = @_;
     my $f = XML::Feed->parse(URI->new('http://blog.fefe.de/rss.xml'))
       or die XML::Feed->errstr;
     my $headline = [ $f->entries() ]->[0]->title;

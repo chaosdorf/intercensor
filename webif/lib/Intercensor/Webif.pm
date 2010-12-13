@@ -168,7 +168,10 @@ post '/register' => sub {
             $hash,
             $salt,
         );
-        session user_id => database->sqlite_last_insert_rowid();
+        session user => {
+            id => database->sqlite_last_insert_rowid(),
+            name => params->{username},
+        };
         redirect '/';
     } else {
         template 'register', {

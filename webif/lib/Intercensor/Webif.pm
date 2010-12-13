@@ -241,11 +241,7 @@ post '/challenge/:id/play' => sub {
             # IPC::System::Simple
             local $SIG{CHLD} = 'DEFAULT';
 
-            if (vars->{current_challenge}) {
-                system('sudo', 'ipset', '-D', vars->{current_challenge}->id,
-                       request->remote_address);
-            }
-
+            stop_challenge;
             system('sudo', 'ipset', '-A', $c->id, request->remote_address);
         }
         redirect '/challenge/' . $c->id;

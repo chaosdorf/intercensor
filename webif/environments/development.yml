@@ -1,6 +1,6 @@
 log: debug
 logger: console
-warnings: 1
+warnings: 0
 show_errors: 1
 
 # auto_reload is a development feature

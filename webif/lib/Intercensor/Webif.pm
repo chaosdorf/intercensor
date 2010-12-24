@@ -320,6 +320,10 @@ post '/challenge/:id/solve' => sub {
     }
 };
 
+get '/about' => sub {
+    template 'about', {}, { layout => undef };
+};
+
 get '/' => sub {
     if (my $c = vars->{current_challenge}) {
         redirect '/challenge/' . $c->id;

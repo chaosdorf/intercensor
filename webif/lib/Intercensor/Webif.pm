@@ -235,6 +235,9 @@ post '/challenge/:id/play' => sub {
     my $c = $challenges{ params->{id} };
 
     if ($c) {
+        debug sprintf('User %s starting challenge %s', session->{user}{name},
+              params->{id});
+
         {
             # Workaround for
             # https://rt.cpan.org/Public/Bug/Display.html?id=46684 in
@@ -262,6 +265,8 @@ post '/challenge/:id/stop' => sub {
     my $c = $challenges{ params->{id} };
 
     if ($c) {
+        debug sprintf('User %s stopping challenge %s', session->{user}{name},
+              params->{id});
         stop_challenge;
         redirect '/challenges';
     }
@@ -277,6 +282,9 @@ post '/challenge/:id/solve' => sub {
     if ($c) {
         my $a = params->{answer};
 
+        debug sprintf('User %s solving challenge %s: %s', session->{user}{name},
+              params->{id}, $a);
+
         if ($c->verify_answer(session->{user}{id}, $a)) {
             # XXX: another creepy +0 workaround…
             database->do('INSERT INTO solved_challenges
@@ -288,9 +296,16 @@ post '/challenge/:id/solve' => sub {
                      time(),
             );
             stop_challenge();
+
+            debug sprintf('User %s solved challenge %s', session->{user}{name},
+                  params->{id});
+
             redirect '/challenges';
         }
         else {
+            debug sprintf('User %s failed to solve challenge %s',
+                          session->{user}{name}, params->{id});
+
             return template challenge => {
                 challenge => $c,
                 page_title => $c->name . ' Challenge',

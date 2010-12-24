@@ -243,6 +243,12 @@ post '/challenge/:id/play' => sub {
 
             stop_challenge;
             system('sudo', 'ipset', '-A', $c->id, request->remote_address);
+
+            # bypass autodie because conntrack returns 1 if no states existed
+            CORE::system('sudo', 'conntrack', '-D', '-s',
+                         request->remote_address);
+            CORE::system('sudo', 'conntrack', '-D', '-d',
+                         request->remote_address);
         }
         redirect '/challenge/' . $c->id;
     }

@@ -1,0 +1,59 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-Type" content=
+"text/html; charset=utf-8" />
+<title><%= $title %> - Intercensor</title>
+<link rel="stylesheet" type="text/css" href="/css/intercensor.css" />
+</head>
+<body>
+
+<ul id="navigation">
+    <% foreach my $item qw(challenges logout) { %>
+    <li>
+        <% if ($item eq '') { %>
+            <a href="/[% item %]" id="nav-<%= $item %>" class="nav-selected">
+                <%= ucfirst($item) %>
+            </a>
+        <% } else { %>
+            <a href="/<%= $item %>" id="nav-<%= $item %>">
+                <%= ucfirst($item) %>
+            </a>
+        <% } %>
+    </li>
+    <% } %>
+</ul>
+
+<div class="maincol maincol-left">
+    <%== content %>
+</div>
+
+<div class="maincol maincol-right">
+    <div class="mainbox" id="status">
+        <h2>Status</h2>
+        <% if ($current_challenge) { %>
+        <p class="infobox notice">
+            You are currently playing the <a href="/challenge/
+                <%= $current_challenge->id %>">
+                <em><%= $current_challenge->name %></em></a> level.
+        </p>
+        <% } %>
+        <p class="infobox success">You are now logged in as <em><%= $current_username %></em>.</p>
+    </div>
+
+    <div class="mainbox" id="latest-challenges">
+        <h2>Latest challenges</h2>
+
+        <% foreach my $c (@$latest_challenges) { %>
+        <h3><%= $c->{name} %></h3>
+        <img src="/images/challenges/small/<%= $c->{id} %>.png" alt="<%= $c->{name} %>" />
+        <address><%= $c->{solved_at} %></address>
+        <% } %>
+    </div>
+</div>
+
+<address id="attribution">Intercensor Project created by the <a href="/about">Intercensor Team</a></address>
+
+</body>
+</html>

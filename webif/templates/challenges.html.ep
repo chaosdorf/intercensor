@@ -1,0 +1,30 @@
+% layout 'main', title => 'Challenges';
+<div class="mainbox challenge-overview">
+    <h2>Unsolved challenges</h2>
+
+    <% while (my ($id, $challenge) = each %$unsolved_challenges) { %>
+    <div class="challenge">
+        <h3><a href="/challenge/<%= $id %>"><%= $challenge->name %></a></h3>
+        <a href="/challenge/<%= $id %>">
+            <img src="images/challenges/unsolved/<%= $id %>.png"
+                 alt="<%= $challenge->name %>" />
+        </a>
+        <%== $challenge->description %>
+    </div>
+    <% } %>
+</div>
+
+<div class="mainbox challenge-overview">
+    <h2>Solved challenges</h2>
+
+    <% while (my ($id, $challenge) = each %$solved_challenges) { %>
+    <div class="challenge">
+        <h3><a href="/challenge/<%= $id %>"><%= $challenge->name %></a></h3>
+        <a href="/challenge/<%= $id %>">
+            <img src="images/challenges/solved/<%= $id %>.png"
+                 alt="<%= $challenge->name %>" />
+        </a>
+        <%== $challenge->description %>
+    </div>
+    <% } %>
+</div>

@@ -3,9 +3,9 @@ use Modern::Perl;
 use Digest::SHA qw(hmac_sha1_hex);
 
 sub new {
-    my ($class, $config) = @_;
+    my ($class, $secret) = @_;
     return bless({
-        secret => $config->{secret},
+        secret => $secret,
     }, $class);
 }
 

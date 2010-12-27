@@ -1,0 +1,16 @@
+# db/filter.rheader.drop
+# response filtering
+#
+# put header entries here that cause ffproxy to drop entire response
+# empty lines and lines starting with # are ignored
+# string matching is performed here (case insensitive)
+#
+# Examples:
+#Content-Type: application/
+#
+# perhaps better:
+#application/
+#audio/mpeg
+#
+#Cookie:
+#Session-Id:

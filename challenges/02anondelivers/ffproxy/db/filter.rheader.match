@@ -1,0 +1,10 @@
+# db/filter.rheader.match
+# response filtering
+#
+# put header entries to remove from response here
+# use filter.rheader.entry to remove entries without regular expressions
+# empty lines and lines starting with # are ignored
+# regular expression matching is performed here
+#
+# Examples:
+#[Cc]ookie:

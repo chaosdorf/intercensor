@@ -9,8 +9,8 @@ Content-Type: text/html; charset=iso-8859-1
 <body>
 <h1>Filtered URL</h1>
 <p>
-<b>The intercensor has you</b>
+<b>Your request was filtered</b>
 <p>
-<em>$u on $h</em>
+<em>URL: $u on host $h</em>
 </body>
 </html>

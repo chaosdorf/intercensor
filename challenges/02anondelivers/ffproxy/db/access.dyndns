@@ -1,0 +1,10 @@
+# db/access.dyndns
+#
+# put hostnames with changing IPv4 addresses allowed to connect here
+# empty lines and lines starting with # are ignored
+# hostnames are resolved to IPv4 address, if IPv4 address matches
+# IP address of connecting host, access is granted
+#
+# Example:
+#myhost.dyndns.org
+#dynip.myip.com

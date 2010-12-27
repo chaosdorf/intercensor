@@ -26,7 +26,6 @@ bind_ipv6 no
 #bind_ipv4_host martyr.burden.eu.org
 #bind_ipv6_host ::1
 #bind_ipv6_host oz.burden.eu.org
-bind_ipv4_host 127.0.0.1
 
 # listen on port
 # (default: 8080)
@@ -97,8 +96,8 @@ unrestricted_connect no
 
 # timeout for CONNECT requests in seconds
 # (default: 5)
-timeout_connect 20
-#timeout_connect 5
+#timeout_connect 20
+timeout_connect 5
 
 # backlog size for accept()
 # (default: 4)

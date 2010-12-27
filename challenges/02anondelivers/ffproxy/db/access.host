@@ -1,0 +1,15 @@
+# db/access.host
+#
+# put IPv4 and IPv6 hostnames (reverse names) allowed to connect here
+# use db/access.dyndns for hosts without proper reverse name
+# use db/access.ip for IPv4 and IPv6 IP addresses
+# empty lines and lines starting with # are ignored
+# regular expression matching is used here,
+# hostnames are converted to lowercase before matching
+#
+# Examples:
+#^menuhin\.burden\.eu\.org$
+#^.*\.mydomain\.org$
+#
+# This would allow everyone with a valid reverse name to connect:
+#.*

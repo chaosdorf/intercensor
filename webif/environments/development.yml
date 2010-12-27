@@ -6,6 +6,9 @@ show_errors: 1
 # auto_reload is a development feature
 # you should enable it by yourself if you want it
 # Module::Refresh is needed
-auto_reload: 1
+auto_reload: 0
 
 secret: secret
+
+server: 10.253.178.1
+port: 80

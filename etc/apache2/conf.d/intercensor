@@ -2,13 +2,13 @@
 #<VirtualHost 10.253.178.1:80>
 #    ServerName webif
 #
+#    FastCgiServer /opt/intercensor/webif/app.pl -processes 2
+#    Alias /images /opt/intercensor/webif/public/images/
+#    Alias / /opt/intercensor/webif/app.pl/
 #    <Location />
-#    Order allow,deny
-#    Allow from all
+#        Allow from all
+#        Order allow,deny
 #    </Location>
-#
-#    ScriptAlias / /opt/intercensor/webif/webif.pl/
-#
 #</VirtualHost>
 
 

@@ -1,0 +1,21 @@
+# db/access.ip
+#
+# put IPv4 and IPv6 addresses allowed to connect here
+# empty lines and lines starting with # are ignored
+# regular expression matching is used here
+#
+# Examples:
+#^192\.168\.10\.(1|2|3|128)$
+#^127\.0\.0\.1$
+#^2001:768:18ff:4::
+#:bfcf%9005$
+#
+# This allows everyone to connect:
+#.*
+#
+# This allows everyone to connect via IPv6:
+#:
+#
+# This allows everyone to connect via IPv4:
+#\.
+#

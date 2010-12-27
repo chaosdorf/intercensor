@@ -1,0 +1,9 @@
+Prosody configuration directory
+===============================
+
+The configuration file /etc/prosody/prosody.cfg.lua should contain
+only global settings.
+
+Per-host configuration files should be placed in /etc/prosody/conf.avail/,
+and the active ones should be linked in /etc/prosody/conf.d/
+

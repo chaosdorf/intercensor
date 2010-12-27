@@ -1,0 +1,16 @@
+HTTP/1.1 200 OK (filtered)
+Connection: close
+Content-Type: text/html; charset=iso-8859-1
+
+<html>
+<head>
+<title>Filtered URL</title>
+</head>
+<body>
+<h1>Filtered URL</h1>
+<p>
+<b>Your request was filtered</b>
+<p>
+<em>URL: $u on host $h</em>
+</body>
+</html>

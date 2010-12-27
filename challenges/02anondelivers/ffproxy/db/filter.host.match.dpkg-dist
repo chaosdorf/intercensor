@@ -1,0 +1,39 @@
+# db/filter.host.match
+#
+# put hosts disallowed connecting to here
+# empty lines and lines starting with # are ignored
+# regular expression matching is used,
+# hostnames are converted to lower case before matching
+#
+# Examples:
+# Don't get ads from hostnames matching these expressions:
+#endemann
+#bannercommunity
+#doubleclick
+#sponsornetz
+#badservant
+#
+# Don't connect to `bad' sites:
+#adult
+#xxx
+#sex
+#porn
+#gamez
+#warez
+#eroti[ck]
+#erotik
+#
+# More ads:
+#^ad(s|[0-9]*)\..*
+#^.*\.admaster.*
+#^adserver\..*
+#^adfarm.*\..*
+#^bs.*\.gmx\.net$
+#^banner.*\..*
+#^finance\.altavista\..*
+#^werbung.*\..*
+#
+# Don't allow Opera to connect to its secret servers:
+#^213\.165\.64\.4.$
+#^213\.165\.64\.3.$
+#^rgs.*\.opera\.com$

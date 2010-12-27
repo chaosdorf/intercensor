@@ -1,0 +1,26 @@
+# db/filter.url.match
+#
+# put URIs to filter here
+# empty lines and lines starting with # are ignored
+# regular expression matching is used
+#
+# Examples:
+# Filter Ads:
+#WERBUNG
+#/ads/
+#/RealMedia
+#\.ads/
+#ooperatio
+#/advert
+#banner/
+#/scripts/cms/
+#/xrps\.asp
+#/event\.ng
+# 
+# File types we don't like:
+# (also use Content-Type filtering via db/filter.rheader.drop)
+#\.com$
+#\.exe$
+#\.doc$
+#
+/\.\./

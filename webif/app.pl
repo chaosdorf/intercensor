@@ -273,7 +273,7 @@ post '/challenge/:id/play' => sub {
         $self->redirect_to('/challenge/' . $c->id);
     }
     else {
-        #status 'not_found';
+        $self->render(text => 'No such challenge', status => 404);
     }
 };
 
@@ -287,7 +287,7 @@ post '/challenge/:id/stop' => sub {
         $self->redirect_to('/challenges');
     }
     else {
-        #status 'not_found';
+        $self->render(text => 'No such challenge', status => 404);
     }
 };
 

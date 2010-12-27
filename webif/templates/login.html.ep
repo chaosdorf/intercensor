@@ -4,29 +4,28 @@
 <head>
 <meta http-equiv="Content-Type" content=
 "text/html; charset=utf-8" />
-<title>Register</title>
+<title>Login</title>
 <link rel="stylesheet" type="text/css" href="css/intercensor.css" />
 </head>
 <body class="extrapage">
 
-<h1>Register</h1>
+<h1>Login</h1>
 
-[% FOREACH error IN errors %]
+<p>If you do not have an account yet, you can <a href="/register">register</a> one.</p>
+
+<% if ($error) { %>
 <p class="infobox error">
-[% error %]
+<%= $error %>
 </p>
-[% END %]
+<% } %>
 
-<form action="/register" method="post">
+<form action="/login" method="post">
 
 <label for="username">Username:</label>
 <input type="text" name="username" />
 
 <label for="password">Password:</label>
 <input type="password" name="password" />
-
-<label for="password">Confirm:</label>
-<input type="password" name="confirm" />
 
 <input type="submit" value="Submit" />
 

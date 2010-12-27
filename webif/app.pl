@@ -72,7 +72,6 @@ post '/login' => sub {
     }
 
     $self->render('login', error => 'Wrong username or password');
-    return;
 };
 
 get '/register' => sub {
@@ -196,7 +195,6 @@ get '/logout' => sub {
     my $self = shift;
     $self->session(user => 0);
     $self->redirect_to('/');
-    return;
 };
 
 get '/challenges' => sub {
@@ -224,7 +222,6 @@ get '/challenges' => sub {
         unsolved_challenges => \%unsolved,
         page_title => 'Challenges',
     );
-    return;
 };
 
 get '/challenge/:id' => sub {
@@ -245,11 +242,9 @@ get '/challenge/:id' => sub {
             question => $question,
             error => undef,
         );
-        return;
     }
     else {
         $self->render(text => 'Not Found', status => 404);
-        return;
     }
 };
 
@@ -276,11 +271,9 @@ post '/challenge/:id/play' => sub {
                          $self->tx->remote_address);
         }
         $self->redirect_to('/challenge/' . $c->id);
-        return;
     }
     else {
         #status 'not_found';
-        return;
     }
 };
 
@@ -292,11 +285,9 @@ post '/challenge/:id/stop' => sub {
         #debug sprintf('User %s stopping challenge %s', $self->session('user')->{name}, $self->param('id'));
         stop_challenge($self->stash('current_challenge'), $self->tx->remote_address);
         $self->redirect_to('/challenges');
-        return;
     }
     else {
         #status 'not_found';
-        return;
     }
 };
 
@@ -324,7 +315,6 @@ post '/challenge/:id/solve' => sub {
             #debug sprintf('User %s solved challenge %s', $self->session('user')->{name}, $self->param('id'));
 
             $self->redirect_to('/challenges');
-            return;
         }
         else {
             #debug sprintf('User %s failed to solve challenge %s', $self->session('user')->{name}, $self->param('id'));
@@ -335,12 +325,10 @@ post '/challenge/:id/solve' => sub {
                 error => 'Your answer is wrong',
                 question => $c->get_question($self->session('user')->{id}),
             );
-            return;
         }
     }
     else {
         $self->render(text => 'No such challenge', status => 404);
-        return;
     }
 };
 
@@ -352,7 +340,6 @@ get '/' => sub {
     else {
         $self->redirect_to('/challenges');
     }
-    return;
 };
 #
 app->start;

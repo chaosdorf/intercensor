@@ -2,7 +2,8 @@
 <div class="mainbox challenge-overview">
     <h2>Unsolved challenges</h2>
 
-    <% while (my ($id, $challenge) = each %$unsolved_challenges) { %>
+    <% foreach my $id (sort keys %$unsolved_challenges) { %>
+    <% my $challenge = $unsolved_challenges->{$id}; %>
     <div class="challenge">
         <h3><a href="/challenge/<%= $id %>"><%= $challenge->name %></a></h3>
         <a href="/challenge/<%= $id %>">

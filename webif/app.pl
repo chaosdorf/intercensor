@@ -3,6 +3,7 @@ use Mojolicious::Lite;
 use autodie ':all';
 use Crypt::Eksblowfish::Bcrypt qw(bcrypt_hash en_base64);
 use Data::Random qw(rand_chars);
+use DateTime;
 use DBI;
 use IPC::System::Simple qw(capture);
 use POSIX qw(strftime);
@@ -14,7 +15,7 @@ use Module::Pluggable
     sub_name => 'challenges';
 
 our $VERSION = '0.1';
-my $dbh = DBI->connect('dbi:SQLite:dbname=webif.sqlite', '', '', {
+my $dbh = DBI->connect('dbi:Pg:dbname=intercensor', '', '', {
     RaiseError => 1,
 });
 
@@ -50,7 +51,7 @@ get '/login' => sub {
 post '/login' => sub {
     my $self = shift;
     my $row = $dbh->selectrow_hashref(
-        'SELECT id, password, salt FROM users WHERE username = ?',
+        'SELECT id, password_hash, password_salt FROM users WHERE name = ?',
         {},
         $self->param('username'),
     );
@@ -58,10 +59,10 @@ post '/login' => sub {
         my $hash = en_base64(bcrypt_hash({
             key_nul => 1,
             cost => 8,
-            salt => $row->{salt},
+            salt => $row->{password_salt},
         }, $self->param('password')));
 
-        if ($row->{password} eq $hash) {
+        if ($row->{password_hash} eq $hash) {
             $self->session(user => {
                 name => $self->param('username'),
                 id => $row->{id},
@@ -103,7 +104,7 @@ post '/register' => sub {
 
     # Check for existing users
     my $row = $dbh->selectrow_hashref(
-        'SELECT id FROM users WHERE username = ?',
+        'SELECT id FROM users WHERE name = ?',
         {},
         $username,
     );
@@ -119,14 +120,15 @@ post '/register' => sub {
             salt => $salt,
         }, $password));
         $dbh->do(
-            'INSERT INTO users (username, password, salt) VALUES (?, ?, ?)',
+            'INSERT INTO users (name, password_hash, password_salt) VALUES (?, ?, ?)',
             {},
             $username,
             $hash,
             $salt,
         );
         $self->session(user => {
-            id => $dbh->sqlite_last_insert_rowid(),
+            id => $dbh->last_insert_id(undef, undef, undef, undef,
+                                       {sequence => 'users_id_seq'}),
             name => $username,
         });
         $self->redirect_to('/');
@@ -165,12 +167,10 @@ under sub {
         $self->stash(current_challenge => undef);
     }
 
-    # ? + 0 is a workaround for
-    # https://rt.cpan.org/Public/Bug/Display.html?id=29629
     my $res = $dbh->selectall_arrayref(
-        'SELECT challenge AS cid, solved_at
+        'SELECT challenge_id AS cid, solved_at
         FROM solved_challenges
-        WHERE user_id = (? + 0)
+        WHERE user_id = ?
         ORDER BY solved_at DESC
         LIMIT 5',
         { Slice => {} },
@@ -182,7 +182,7 @@ under sub {
         my $id = $row->{cid};
         push @latest_challenges, {
             id => $id,
-            solved_at => strftime('%c', localtime($row->{solved_at})),
+            solved_at => $row->{solved_at},
             name => $challenges{$id}->name,
         };
     }
@@ -203,8 +203,8 @@ get '/logout' => sub {
 get '/challenges' => sub {
     my $self = shift;
     my @rows = @{ $dbh->selectcol_arrayref(
-        'SELECT challenge FROM solved_challenges
-        WHERE user_id = (? + 0)',
+        'SELECT challenge_id FROM solved_challenges
+        WHERE user_id = ?',
         {},
         $self->session('user')->{id},
     )};
@@ -304,14 +304,13 @@ post '/challenge/:id/solve' => sub {
         #debug sprintf('User %s solving challenge %s: %s', $self->session('user')->{name}, $self->param('id'), $a);
 
         if ($c->verify_answer($self->session('user')->{id}, $a)) {
-            # XXX: another creepy +0 workaround…
             $dbh->do('INSERT INTO solved_challenges
-                     (user_id, challenge, solved_at)
-                     VALUES (?+0, ?, ?)',
+                     (user_id, challenge_id, solved_at)
+                     VALUES (?, ?, ?)',
                      {},
                      $self->session('user')->{id},
                      $c->id,
-                     time(),
+                     DateTime->now(),
             );
             stop_challenge($self->stash('current_challenge'), $self->tx->remote_address);
 

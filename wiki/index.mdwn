@@ -1,8 +1,13 @@
 # Intercensor
 
-Intercensor is a censorship bypass game in development. If you are interested
-in helping, you can contact us via IRC. We lurk in the channel #intercensor on
-irc.oftc.net
+In the past years there was a lot of discussion about internet censorship.  To
+get an actual impression of censorship implementation details and
+circumvention methods, we created the Intercensor Project.  It gives you a
+switch with censored internet, and your task is to connect to it and
+circumvent the various censorship levels.
+
+If you are interested, you can contact us via IRC: #intercensor on
+irc.oftc.net.
 
 [[stuff]]
 [[sitemap]]

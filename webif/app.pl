@@ -188,6 +188,9 @@ under sub {
     }
 
     $self->stash(latest_challenges => \@latest_challenges);
+
+    $self->stash(just_solved => scalar $self->flash('just_solved'));
+
     return 1;
 };
 
@@ -314,6 +317,7 @@ post '/challenge/:id/solve' => sub {
 
             #debug sprintf('User %s solved challenge %s', $self->session('user')->{name}, $self->param('id'));
 
+            $self->flash(just_solved => $c->name);
             $self->redirect_to('/challenges');
         }
         else {

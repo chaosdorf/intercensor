@@ -32,6 +32,9 @@
 <div class="maincol maincol-right">
     <div class="mainbox" id="status">
         <h2>Status</h2>
+        <% if ($just_solved) { %>
+        <p class="infobox success">You solved <strong><%= $just_solved %></strong>!</p>
+        <% } %>
         <% if ($current_challenge) { %>
         <p class="infobox notice">
             You are currently playing the <a href="/challenge/

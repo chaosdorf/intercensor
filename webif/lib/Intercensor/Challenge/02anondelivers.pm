@@ -19,7 +19,8 @@ sub description {
     person via the 4chan imageboard.</p>
     <p>Your task is to plant it on <a
     href="http://www.4chan.org/b/">4chan.org/b</a>. Create a new thread and put
-    {{{TOKEN}}} into the body. Give us the URL of the resulting thread</p>';
+    {{{TOKEN}}} into the body. Give us the URL of the resulting thread.</p>
+    <p>(Note that the {{{ }}} are required)</p>';
 }
 
 sub get_question {

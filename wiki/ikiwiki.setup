@@ -30,7 +30,8 @@ cgi_wrappermode: 06755
 # rcs backend to use
 rcs: ''
 # plugins to add to the default configuration
-add_plugins: []
+add_plugins:
+  - img
 # plugins to disable
 disable_plugins: []
 # additional directory to search for template files

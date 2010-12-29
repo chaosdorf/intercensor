@@ -35,7 +35,9 @@ working on even more. A highscore is also planned.
 If you are interested, you can contact us via IRC: #intercensor on
 irc.oftc.net.
 
-[[stuff]]
+[German description](https://www.chaosdorf.de/projekte/zensurbox/)
+
+[[stuff]]  
 [[sitemap]]
 
 [web interface templates](http://penma.de/extercensor)

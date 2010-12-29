@@ -4,7 +4,33 @@ In the past years there was a lot of discussion about internet censorship.  To
 get an actual impression of censorship implementation details and
 circumvention methods, we created the Intercensor Project.  It gives you a
 switch with censored internet, and your task is to connect to it and
-circumvent the various censorship levels.
+circumvent the various censorship levels. The more creative your solution, the
+better.
+
+This is meant to show the various methods a government can use to censor their
+citizen's internet access.
+
+## Zensurbox 1.0
+
+The very first version was called "Zensursulas Blackbox" (Ursula v.d.L. aka
+Zensursula is a german politician in faviour of internet censorship). There
+were three switches (and later one switch + web interface) where the user
+could choose their level of censorship. Each level had a different task.
+
+We held a [Lightning
+Talk](http://www.chaosdorf.de/projekte/zensurbox/26c3_lt.avi) about the
+project on the 26C3.
+
+[[!img 26c3_schild.jpg size=400x]] [[!img 26c3_box.jpg size=400x]]
+
+[[!img froscon10_box.jpg size=400x]]
+
+## Zensurbox 2.0 / Intercensor
+
+[[!img cccd_planung.jpg size=400x]]  
+Version 2 of the box is mostly finished by now. We now have a shiny web
+interface with account registration and a bunch of new challenges, and are
+working on even more. A highscore is also planned.
 
 If you are interested, you can contact us via IRC: #intercensor on
 irc.oftc.net.

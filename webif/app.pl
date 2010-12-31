@@ -6,20 +6,15 @@ use lib '../lib';
 use Authen::Passphrase::BlowfishCrypt;
 use DateTime;
 use DBI;
+use Intercensor::Challenge;
 use Intercensor::Util::Conntrack qw(delete_conntrack_states);
 use Intercensor::Util::IPSet qw(find_ipset add_to_ipset delete_from_ipset);
 use IPC::System::Simple qw(capture);
 use POSIX qw(strftime);
 
-use Module::Pluggable
-  search_path => ['Intercensor::Challenge'],
-  instantiate => 'new',
-  sub_name    => 'challenges';
 
 our $VERSION = '0.1';
 my $dbh = DBI->connect('dbi:Pg:dbname=intercensor', '', '', {RaiseError => 1,});
-
-my %challenges = map { $_->id => $_ } __PACKAGE__->challenges('mysecret');
 
 get '/about' => 'about';
 
@@ -122,7 +117,7 @@ under sub {
 
     my $cid = find_ipset($self->tx->remote_address);
     if ($cid) {
-        $self->stash(current_challenge => $challenges{$cid});
+        $self->stash(current_challenge => Intercensor::Challenge->get($cid));
     }
     else {
         $self->stash(current_challenge => undef);
@@ -144,7 +139,7 @@ under sub {
         push @latest_challenges, {
             id        => $id,
             solved_at => $row->{solved_at},
-            name      => $challenges{$id}->name,
+            name      => Intercensor::Challenge->get($id)->name,
           };
     }
 
@@ -173,12 +168,12 @@ get '/challenges' => sub {
     my %is_solved = map { $_ => 1 } @rows;
 
     my (%solved, %unsolved);
-    foreach my $id (keys %challenges) {
-        if ($is_solved{$id}) {
-            $solved{$id} = $challenges{$id};
+    foreach my $c (Intercensor::Challenge->all()) {
+        if ($is_solved{$c->id}) {
+            $solved{$c->id} = $c;
         }
         else {
-            $unsolved{$id} = $challenges{$id};
+            $unsolved{$c->id} = $c;
         }
     }
 
@@ -192,7 +187,7 @@ get '/challenges' => sub {
 
 get '/challenge/:id' => sub {
     my $self = shift;
-    my $c    = $challenges{$self->param('id')};
+    my $c    = Intercensor::Challenge->get($self->param('id'));
 
     if ($c) {
         my $question;
@@ -220,7 +215,7 @@ get '/challenge/:id' => sub {
 
 post '/challenge/:id/play' => sub {
     my $self = shift;
-    my $c    = $challenges{$self->param('id')};
+    my $c    = Intercensor::Challenge->get($self->param('id'));
 
     if ($c) {
 
@@ -244,7 +239,7 @@ post '/challenge/:id/play' => sub {
 
 post '/challenge/:id/stop' => sub {
     my $self = shift;
-    my $c    = $challenges{$self->param('id')};
+    my $c    = Intercensor::Challenge->get($self->param('id'));
 
     if ($c) {
 
@@ -263,7 +258,7 @@ post '/challenge/:id/stop' => sub {
 
 post '/challenge/:id/solve' => sub {
     my $self = shift;
-    my $c    = $challenges{$self->param('id')};
+    my $c    = Intercensor::Challenge->get($self->param('id'));
 
     if ($c) {
         my $a = $self->param('answer');

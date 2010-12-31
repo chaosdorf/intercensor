@@ -5,8 +5,10 @@ CREATE TABLE users (
     id serial,
     name character varying(50),
     password char(60),
+    address inet,
     PRIMARY KEY (id),
-    UNIQUE (name)
+    UNIQUE (name),
+    UNIQUE (address)
 );
 
 CREATE TABLE solved_challenges (

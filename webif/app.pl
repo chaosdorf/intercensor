@@ -1,14 +1,15 @@
 #!/usr/bin/env perl
 use Mojolicious::Lite;
 use autodie ':all';
+use lib 'lib';
 use Crypt::Eksblowfish::Bcrypt qw(bcrypt_hash en_base64);
 use Data::Random qw(rand_chars);
 use DateTime;
 use DBI;
+use Intercensor::Util::Conntrack qw(delete_conntrack_states);
 use IPC::System::Simple qw(capture);
 use POSIX qw(strftime);
 
-use lib 'lib';
 use Module::Pluggable
     search_path => ['Intercensor::Challenge'],
     instantiate => 'new',
@@ -267,11 +268,7 @@ post '/challenge/:id/play' => sub {
             stop_challenge($self->stash('current_challenge'), $self->tx->remote_address);
             system('sudo', 'ipset', '-A', $c->id, $self->tx->remote_address);
 
-            # bypass autodie because conntrack returns 1 if no states existed
-            CORE::system('sudo', 'conntrack', '-D', '-s',
-                         $self->tx->remote_address);
-            CORE::system('sudo', 'conntrack', '-D', '-d',
-                         $self->tx->remote_address);
+            delete_conntrack_states($self->tx->remote_address);
         }
         $self->redirect_to('/challenge/' . $c->id);
     }

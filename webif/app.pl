@@ -2,8 +2,7 @@
 use Mojolicious::Lite;
 use autodie ':all';
 use lib 'lib';
-use Crypt::Eksblowfish::Bcrypt qw(bcrypt_hash en_base64);
-use Data::Random qw(rand_chars);
+use Authen::Passphrase::BlowfishCrypt;
 use DateTime;
 use DBI;
 use Intercensor::Util::Conntrack qw(delete_conntrack_states);
@@ -21,10 +20,6 @@ my $dbh = DBI->connect('dbi:Pg:dbname=intercensor', '', '', {
 });
 
 my %challenges = map { $_->id => $_ } __PACKAGE__->challenges('mysecret');
-
-sub gensalt {
-    return join(q{}, rand_chars(set => 'all', size => 16));
-}
 
 sub stop_challenge {
     my ($challenge, $ip) = @_;
@@ -52,18 +47,16 @@ get '/login' => sub {
 post '/login' => sub {
     my $self = shift;
     my $row = $dbh->selectrow_hashref(
-        'SELECT id, password_hash, password_salt FROM users WHERE name = ?',
+        'SELECT id, password FROM users WHERE name = ?',
         {},
         $self->param('username'),
     );
     if ($row) {
-        my $hash = en_base64(bcrypt_hash({
-            key_nul => 1,
-            cost => 8,
-            salt => $row->{password_salt},
-        }, $self->param('password')));
+        my $authpw = Authen::Passphrase::BlowfishCrypt->from_crypt(
+            $row->{password}
+        );
 
-        if ($row->{password_hash} eq $hash) {
+        if ($authpw->match($self->param('password'))) {
             $self->session(user => {
                 name => $self->param('username'),
                 id => $row->{id},
@@ -114,18 +107,16 @@ post '/register' => sub {
     }
 
     if (!@errors) {
-        my $salt = gensalt();
-        my $hash = en_base64(bcrypt_hash({
-            key_nul => 1,
+        my $authpw = Authen::Passphrase::BlowfishCrypt->new(
             cost => 8,
-            salt => $salt,
-        }, $password));
+            salt_random => 1,
+            passphrase => $password,
+        );
         $dbh->do(
-            'INSERT INTO users (name, password_hash, password_salt) VALUES (?, ?, ?)',
+            'INSERT INTO users (name, password) VALUES (?, ?)',
             {},
             $username,
-            $hash,
-            $salt,
+            $authpw->as_crypt(),
         );
         $self->session(user => {
             id => $dbh->last_insert_id(undef, undef, undef, undef,

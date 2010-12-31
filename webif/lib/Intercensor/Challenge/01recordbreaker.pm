@@ -14,11 +14,13 @@ sub name {
 }
 
 sub description {
-    '<p>Let\'s start with something simple. "Fefe\'s Blog" is a site well-known
-    for spreading conspiracy theories and general non-conforming information.
-    Because of this, access to it is prohibited</p>
-    <p>Your task is to retrieve the RSS Feed and give us the latest headline
-    (the &lt;title&gt; element).</p>';
+    return <<'EOF';
+<p>Let's start with something simple. "Fefes Blog" is a site well-known
+for spreading conspiracy theories and general non-conforming information.
+Because of this, access to it is prohibited</p>
+<p>Your task is to retrieve the RSS Feed and give us the latest headline
+(the &lt;title&gt; element).</p>
+EOF
 }
 
 sub verify_answer {

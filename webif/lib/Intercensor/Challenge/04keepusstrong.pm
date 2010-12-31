@@ -14,9 +14,11 @@ sub name {
 }
 
 sub description {
-    'Wikileaks has released a large amount of US embassy cables. We need you to
-    find the cable with reference number 08DHAKA856 and provide us with the
-    name of the mentioned organization';
+    return <<'EOF';
+Wikileaks has released a large amount of US embassy cables. We need you to
+find the cable with reference number 08DHAKA856 and provide us with the
+name of the mentioned organization
+EOF
 }
 
 sub verify_answer {

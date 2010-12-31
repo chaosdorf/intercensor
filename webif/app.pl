@@ -1,4 +1,5 @@
 #!/usr/bin/env perl
+use Modern::Perl;
 use Mojolicious::Lite;
 use autodie ':all';
 use lib 'lib';
@@ -28,8 +29,9 @@ sub stop_challenge {
     local $SIG{CHLD} = 'DEFAULT';
 
     if ($challenge) {
-        system('sudo', 'ipset', '-D', $challenge->id, $ip);
+        system 'sudo', 'ipset', '-D', $challenge->id, $ip;
     }
+    return;
 }
 
 get '/about' => sub {
@@ -261,7 +263,7 @@ post '/challenge/:id/play' => sub {
 
             stop_challenge($self->stash('current_challenge'),
                 $self->tx->remote_address);
-            system('sudo', 'ipset', '-A', $c->id, $self->tx->remote_address);
+            system 'sudo', 'ipset', '-A', $c->id, $self->tx->remote_address;
 
             delete_conntrack_states($self->tx->remote_address);
         }

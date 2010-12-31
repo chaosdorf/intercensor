@@ -14,13 +14,15 @@ sub name {
 }
 
 sub description {
-    '<p>Man the harpoons!<br/>
-    We have an encrypted token for you, which we need to deliver to another
-    person via the 4chan imageboard.</p>
-    <p>Your task is to plant it on <a
-    href="http://www.4chan.org/b/">4chan.org/b</a>. Create a new thread and put
-    {{{TOKEN}}} into the body. Give us the URL of the resulting thread.</p>
-    <p>(Note that the {{{ }}} are required)</p>';
+    return <<'EOF';
+<p>Man the harpoons!<br/>
+We have an encrypted token for you, which we need to deliver to another
+person via the 4chan imageboard.</p>
+<p>Your task is to plant it on <a
+href="http://www.4chan.org/b/">4chan.org/b</a>. Create a new thread and put
+{{{TOKEN}}} into the body. Give us the URL of the resulting thread.</p>
+<p>(Note that the {{{ }}} are required)</p>
+EOF
 }
 
 sub get_question {
@@ -32,12 +34,12 @@ sub verify_answer {
     my ($self, $user_id, $answer) = @_;
 
     if ($answer !~ m{^http://boards.4chan.org/b/res}) {
-        return undef;
+        return;
     }
 
     my $content = get($answer);
     if (!defined $content) {
-        return undef;
+        return;
     }
 
     my $tree;
@@ -54,7 +56,7 @@ sub verify_answer {
     my $post = $tree->findnodes('//blockquote')->[0];
 
     if (!defined $post) {
-        return undef;
+        return;
     }
 
     my $text = $post->textContent;
@@ -64,7 +66,7 @@ sub verify_answer {
         return ($token eq $self->generate_token($user_id));
     }
     else {
-        return undef;
+        return;
     }
 
 }

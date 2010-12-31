@@ -12,8 +12,10 @@ sub name {
 }
 
 sub description {
-    '<p>Rien ne va plus. There are no designated solutions for this challenge.
-    can you still make it?</p>';
+    return <<'EOF';
+<p>Rien ne va plus. There are no designated solutions for this challenge.
+can you still make it?</p>
+EOF
 }
 
 sub verify_answer {

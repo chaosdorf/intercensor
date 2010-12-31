@@ -42,9 +42,13 @@ sub verify_answer {
 
     my $tree;
     {
+
         # XML::LibXML likes to spam with warnings.
         local $SIG{__WARN__} = sub { };
-        $tree = XML::LibXML->load_html(string => $content, recover => 1);
+        $tree = XML::LibXML->load_html(
+            string  => $content,
+            recover => 1
+        );
     }
 
     my $post = $tree->findnodes('//blockquote')->[0];

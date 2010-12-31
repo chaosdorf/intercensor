@@ -25,10 +25,10 @@ sub verify_answer {
     my ($self, $user_id, $answer) = @_;
     my $f = XML::Feed->parse(URI->new('http://blog.fefe.de/rss.xml'))
       or die XML::Feed->errstr;
-    my $headline = [ $f->entries() ]->[0]->title;
+    my $headline = [$f->entries()]->[0]->title;
 
     $headline =~ s/\W+//g;
-    $answer =~ s/\W+//g;
+    $answer   =~ s/\W+//g;
 
     return ($headline eq $answer);
 }

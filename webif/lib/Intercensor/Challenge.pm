@@ -4,9 +4,7 @@ use Digest::SHA qw(hmac_sha1_hex);
 
 sub new {
     my ($class, $secret) = @_;
-    return bless({
-        secret => $secret,
-    }, $class);
+    return bless({secret => $secret,}, $class);
 }
 
 sub generate_token {

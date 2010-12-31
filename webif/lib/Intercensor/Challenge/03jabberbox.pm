@@ -14,7 +14,7 @@ sub name {
 }
 
 sub description {
-    'JABBER BOX'
+    'JABBER BOX';
 }
 
 sub get_question {

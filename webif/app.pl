@@ -34,10 +34,7 @@ sub stop_challenge {
     return;
 }
 
-get '/about' => sub {
-    my $self = shift;
-    $self->render('about');
-};
+get '/about' => 'about';
 
 get '/login' => sub {
     my $self = shift;

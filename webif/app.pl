@@ -7,6 +7,7 @@ use Authen::Passphrase::BlowfishCrypt;
 use DateTime;
 use DBI;
 use Intercensor::Util::Conntrack qw(delete_conntrack_states);
+use Intercensor::Util::IPSet qw(find_ipset add_to_ipset delete_from_ipset);
 use IPC::System::Simple qw(capture);
 use POSIX qw(strftime);
 
@@ -19,20 +20,6 @@ our $VERSION = '0.1';
 my $dbh = DBI->connect('dbi:Pg:dbname=intercensor', '', '', {RaiseError => 1,});
 
 my %challenges = map { $_->id => $_ } __PACKAGE__->challenges('mysecret');
-
-sub stop_challenge {
-    my ($challenge, $ip) = @_;
-
-    # Workaround for
-    # https://rt.cpan.org/Public/Bug/Display.html?id=46684 in
-    # IPC::System::Simple
-    local $SIG{CHLD} = 'DEFAULT';
-
-    if ($challenge) {
-        system 'sudo', 'ipset', '-D', $challenge->id, $ip;
-    }
-    return;
-}
 
 get '/about' => 'about';
 
@@ -133,19 +120,7 @@ under sub {
 
     $self->stash(current_username => $self->session('user')->{name});
 
-    my $ip = $self->tx->remote_address;
-
-    my $ipsets;
-    {
-
-        # Workaround for https://rt.cpan.org/Public/Bug/Display.html?id=46684
-        # in IPC::System::Simple
-        local $SIG{CHLD} = 'DEFAULT';
-        $ipsets = capture('sudo', 'ipset', '-S');
-    }
-
-    my ($cid) = ($ipsets =~ /^-A (\w+) \Q$ip\E$/gms);
-
+    my $cid = find_ipset($self->tx->remote_address);
     if ($cid) {
         $self->stash(current_challenge => $challenges{$cid});
     }
@@ -250,20 +225,13 @@ post '/challenge/:id/play' => sub {
     if ($c) {
 
 #debug sprintf('User %s starting challenge %s', $self->session('user')->{name}, $self->param('id'));
+        my $addr = $self->tx->remote_address;
 
-        {
+        delete_from_ipset($self->stash('current_challenge')->id, $addr) 
+          if $self->stash('current_challenge');
+        add_to_ipset($c->id, $addr);
+        delete_conntrack_states($addr);
 
-            # Workaround for
-            # https://rt.cpan.org/Public/Bug/Display.html?id=46684 in
-            # IPC::System::Simple
-            local $SIG{CHLD} = 'DEFAULT';
-
-            stop_challenge($self->stash('current_challenge'),
-                $self->tx->remote_address);
-            system 'sudo', 'ipset', '-A', $c->id, $self->tx->remote_address;
-
-            delete_conntrack_states($self->tx->remote_address);
-        }
         $self->redirect_to('/challenge/' . $c->id);
     }
     else {
@@ -281,7 +249,7 @@ post '/challenge/:id/stop' => sub {
     if ($c) {
 
 #debug sprintf('User %s stopping challenge %s', $self->session('user')->{name}, $self->param('id'));
-        stop_challenge($self->stash('current_challenge'),
+        delete_from_ipset($self->stash('current_challenge')->id,
             $self->tx->remote_address);
         $self->redirect_to('/challenges');
     }
@@ -312,7 +280,7 @@ post '/challenge/:id/solve' => sub {
                 $c->id,
                 DateTime->now(),
             );
-            stop_challenge($self->stash('current_challenge'),
+            delete_from_ipset($self->stash('current_challenge')->id,
                 $self->tx->remote_address);
 
 #debug sprintf('User %s solved challenge %s', $self->session('user')->{name}, $self->param('id'));

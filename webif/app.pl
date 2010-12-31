@@ -2,7 +2,7 @@
 use Modern::Perl;
 use Mojolicious::Lite;
 use autodie ':all';
-use lib 'lib';
+use lib '../lib';
 use Authen::Passphrase::BlowfishCrypt;
 use DateTime;
 use DBI;

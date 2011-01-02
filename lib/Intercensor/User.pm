@@ -63,6 +63,18 @@ sub create {
     return bless $self, $class;
 }
 
+sub address {
+    my ($self, $address) = @_;
+
+    if (@_ == 2) {
+        $dbh->do('UPDATE users SET address = ? WHERE id = ?',
+                 {}, $address, $self->id);
+        $self->{address} = $address;
+    }
+
+    return $self->{address};
+}
+
 sub solve_challenge {
     my ($self, $challenge) = @_;
     $dbh->do(

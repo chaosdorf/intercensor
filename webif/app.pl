@@ -82,10 +82,13 @@ post '/register' => sub {
 
 under sub {
     my $self = shift;
-    if (!$self->session('user')) {
+    my $user = $self->session('user');
+    if (!$user) {
         $self->redirect_to('login');
         return;
     }
+
+    $user->address($self->tx->remote_address);
 
     $self->stash(current_username => $self->session('user')->{name});
 
@@ -106,6 +109,7 @@ under sub {
 
 get '/logout' => sub {
     my $self = shift;
+    $self->session('user')->address(undef);
     $self->session(user => 0);
     $self->redirect_to('/');
 };

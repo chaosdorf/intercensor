@@ -8,13 +8,18 @@ circumvent the various censorship levels. The more creative your solution, the
 better.
 
 This is meant to show the various methods a government can use to censor their
-citizen's internet access.
+citizen's internet access. See also our [26C3 Lightning
+Talk](http://www.chaosdorf.de/projekte/zensurbox/26c3_lt.avi) for more
+information.
 
 To play the game, either visit us at the
 [Chaosdorf](https://www.chaosdorf.de/) (german Hackerspace in Düsseldorf) or
 come to one of the events we usually attend (most notably the annual Chaos
 Communication Congress). Help from interested coders or designers is also much
 appreciated.
+
+All interested parties are welcome to visit our IRC Channel, #intercensor on
+OFTC (irc.oftc.net).
 
 Experiences from past events and [[history]] of the Intercensor Project.
 

@@ -7,10 +7,6 @@ the box. Back then there were three levels, each of them accessible through a
 different switch. We later added a web interface, so that only one switch was
 needed.
 
-We held a [Lightning
-Talk](http://www.chaosdorf.de/projekte/zensurbox/26c3_lt.avi) about the
-project on the 26C3.
-
 ## Intercensor 2.0
 
 [[!img cccd_planung.jpg size=400x]]  
@@ -43,6 +39,10 @@ interface.
 Fun fact: Ethernet ports were quite rare on our table, so we frequently had
 people connected to the Zensurbox who actually just wanted a seat and
 internet. Luckily, they all managed to bypass the easiest level :)
+
+We also held a [Lightning
+Talk](http://www.chaosdorf.de/projekte/zensurbox/26c3_lt.avi) about the
+project.
 
 #### FrOSCon 2010
 

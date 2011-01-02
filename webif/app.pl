@@ -5,8 +5,6 @@ use autodie ':all';
 use lib '../lib';
 use Intercensor::Challenge;
 use Intercensor::User;
-use Intercensor::Util::Conntrack qw(delete_conntrack_states);
-use Intercensor::Util::IPSet qw(find_ipset add_to_ipset delete_from_ipset);
 use IPC::System::Simple qw(capture);
 use POSIX qw(strftime);
 
@@ -91,14 +89,7 @@ under sub {
     $user->address($self->tx->remote_address);
 
     $self->stash(current_username => $self->session('user')->{name});
-
-    my $cid = find_ipset($self->tx->remote_address);
-    if ($cid) {
-        $self->stash(current_challenge => Intercensor::Challenge->get($cid));
-    }
-    else {
-        $self->stash(current_challenge => undef);
-    }
+    $self->stash(current_challenge => $user->current_challenge);
 
     my @latest_challenges = $self->session('user')->latest_solved_challenges();
     $self->stash(latest_challenges => \@latest_challenges);
@@ -165,11 +156,7 @@ post '/challenge/:id/play' => sub {
 #debug sprintf('User %s starting challenge %s', $self->session('user')->{name}, $self->param('id'));
         my $addr = $self->tx->remote_address;
 
-        delete_from_ipset($self->stash('current_challenge')->id, $addr) 
-          if $self->stash('current_challenge');
-        add_to_ipset($c->id, $addr);
-        delete_conntrack_states($addr);
-
+        $self->session('user')->start_challenge($c);
         $self->redirect_to('/challenge/' . $c->id);
     }
     else {
@@ -187,8 +174,7 @@ post '/challenge/:id/stop' => sub {
     if ($c) {
 
 #debug sprintf('User %s stopping challenge %s', $self->session('user')->{name}, $self->param('id'));
-        delete_from_ipset($self->stash('current_challenge')->id,
-            $self->tx->remote_address);
+        $self->session('user')->stop_challenge();
         $self->redirect_to('/challenges');
     }
     else {
@@ -210,8 +196,6 @@ post '/challenge/:id/solve' => sub {
 
         if ($c->verify_answer($self->session('user')->{id}, $a)) {
             $self->session('user')->solve_challenge($c);
-            delete_from_ipset($self->stash('current_challenge')->id,
-                $self->tx->remote_address);
 
 #debug sprintf('User %s solved challenge %s', $self->session('user')->{name}, $self->param('id'));
 

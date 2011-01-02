@@ -7,6 +7,8 @@ use Carp;
 use DateTime;
 use DBI;
 use Intercensor::Challenge;
+use Intercensor::Util::Conntrack qw(delete_conntrack_states);
+use Intercensor::Util::IPSet qw(find_ipset add_to_ipset delete_from_ipset);
 use List::MoreUtils qw(uniq);
 use Set::Object qw(set);
 
@@ -75,6 +77,27 @@ sub address {
     return $self->{address};
 }
 
+sub current_challenge {
+    my ($self) = @_;
+    my $cid = find_ipset($self->address);
+    return Intercensor::Challenge->get($cid) if $cid;
+    return undef;
+}
+
+sub stop_challenge {
+    my ($self) = @_;
+    if ($self->current_challenge) {
+        delete_from_ipset($self->current_challenge->id, $self->address);
+    }
+}
+
+sub start_challenge {
+    my ($self, $challenge) = @_;
+    $self->stop_challenge();
+    add_to_ipset($challenge->id, $self->address);
+    delete_conntrack_states($self->address);
+}
+
 sub solve_challenge {
     my ($self, $challenge) = @_;
     $dbh->do(
@@ -86,6 +109,7 @@ sub solve_challenge {
         $challenge->id,
         DateTime->now(),
     );
+    $self->stop_challenge();
 }
 
 sub solved_challenges {

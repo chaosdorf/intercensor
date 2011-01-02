@@ -2,15 +2,14 @@
 <div class="mainbox challenge-overview">
     <h2>Unsolved challenges</h2>
 
-    <% foreach my $id (sort keys %$unsolved_challenges) { %>
-    <% my $challenge = $unsolved_challenges->{$id}; %>
+    <% foreach (sort { $a->id cmp $b->id }  @$unsolved_challenges) { %>
     <div class="challenge">
-        <h3><a href="/challenge/<%= $id %>"><%= $challenge->name %></a></h3>
-        <a href="/challenge/<%= $id %>">
-            <img src="images/challenges/unsolved/<%= $id %>.png"
-                 alt="<%= $challenge->name %>" />
+        <h3><a href="/challenge/<%= $_->id %>"><%= $_->name %></a></h3>
+        <a href="/challenge/<%= $_->id %>">
+            <img src="images/challenges/unsolved/<%= $_->id %>.png"
+                 alt="<%= $_->name %>" />
         </a>
-        <%== $challenge->description %>
+        <%== $_->description %>
     </div>
     <% } %>
 </div>
@@ -18,14 +17,14 @@
 <div class="mainbox challenge-overview">
     <h2>Solved challenges</h2>
 
-    <% while (my ($id, $challenge) = each %$solved_challenges) { %>
+    <% foreach (sort { $a->id cmp $b->id }  @$solved_challenges) { %>
     <div class="challenge">
-        <h3><a href="/challenge/<%= $id %>"><%= $challenge->name %></a></h3>
-        <a href="/challenge/<%= $id %>">
-            <img src="images/challenges/solved/<%= $id %>.png"
-                 alt="<%= $challenge->name %>" />
+        <h3><a href="/challenge/<%= $_->id %>"><%= $_->name %></a></h3>
+        <a href="/challenge/<%= $_->id %>">
+            <img src="images/challenges/solved/<%= $_->id %>.png"
+                 alt="<%= $_->name %>" />
         </a>
-        <%== $challenge->description %>
+        <%== $_->description %>
     </div>
     <% } %>
 </div>

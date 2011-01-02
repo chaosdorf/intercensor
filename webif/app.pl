@@ -3,18 +3,14 @@ use Modern::Perl;
 use Mojolicious::Lite;
 use autodie ':all';
 use lib '../lib';
-use Authen::Passphrase::BlowfishCrypt;
-use DateTime;
-use DBI;
 use Intercensor::Challenge;
+use Intercensor::User;
 use Intercensor::Util::Conntrack qw(delete_conntrack_states);
 use Intercensor::Util::IPSet qw(find_ipset add_to_ipset delete_from_ipset);
 use IPC::System::Simple qw(capture);
 use POSIX qw(strftime);
 
-
 our $VERSION = '0.1';
-my $dbh = DBI->connect('dbi:Pg:dbname=intercensor', '', '', {RaiseError => 1,});
 
 get '/about' => 'about';
 
@@ -25,26 +21,15 @@ get '/login' => sub {
 
 post '/login' => sub {
     my $self = shift;
-    my $row  = $dbh->selectrow_hashref(
-        'SELECT id, password FROM users WHERE name = ?',
-        {}, $self->param('username'),
-    );
-    if ($row) {
-        my $authpw
-          = Authen::Passphrase::BlowfishCrypt->from_crypt($row->{password});
+    my $user = Intercensor::User->lookup(name => $self->param('username'));
 
-        if ($authpw->match($self->param('password'))) {
-            $self->session(
-                user => {
-                    name => $self->param('username'),
-                    id   => $row->{id},
-                });
-            $self->redirect_to('/');
-            return;
-        }
+    if ($user && $user->validate_login($self->param('password'))) {
+        $self->session(user => $user);
+        $self->redirect_to('/');
     }
-
-    $self->render('login', error => 'Wrong username or password');
+    else {
+        $self->render('login', error => 'Wrong username or password');
+    }
 };
 
 get '/register' => sub {
@@ -78,27 +63,16 @@ post '/register' => sub {
     }
 
     # Check for existing users
-    my $row = $dbh->selectrow_hashref('SELECT id FROM users WHERE name = ?',
-        {}, $username,);
-    if ($row) {
+    if (Intercensor::User->lookup(name => $username)) {
         push @errors, 'A user with this username already exists';
     }
 
     if (!@errors) {
-        my $authpw = Authen::Passphrase::BlowfishCrypt->new(
-            cost        => 8,
-            salt_random => 1,
-            passphrase  => $password,
+        my $user = Intercensor::User->create(
+            name => $username,
+            password => $password,
         );
-        $dbh->do('INSERT INTO users (name, password) VALUES (?, ?)',
-            {}, $username, $authpw->as_crypt(),);
-        $self->session(
-            user => {
-                id => $dbh->last_insert_id(
-                    undef, undef, undef, undef, {sequence => 'users_id_seq'}
-                ),
-                name => $username,
-            });
+        $self->session(user => $user);
         $self->redirect_to('/');
     }
     else {
@@ -123,28 +97,8 @@ under sub {
         $self->stash(current_challenge => undef);
     }
 
-    my $res = $dbh->selectall_arrayref(
-        'SELECT challenge_id AS cid, solved_at
-        FROM solved_challenges
-        WHERE user_id = ?
-        ORDER BY solved_at DESC
-        LIMIT 5',
-        {Slice => {}},
-        $self->session('user')->{id},
-    );
-
-    my @latest_challenges;
-    foreach my $row (@$res) {
-        my $id = $row->{cid};
-        push @latest_challenges, {
-            id        => $id,
-            solved_at => $row->{solved_at},
-            name      => Intercensor::Challenge->get($id)->name,
-          };
-    }
-
+    my @latest_challenges = $self->session('user')->latest_solved_challenges();
     $self->stash(latest_challenges => \@latest_challenges);
-
     $self->stash(just_solved => scalar $self->flash('just_solved'));
 
     return 1;
@@ -158,29 +112,14 @@ get '/logout' => sub {
 
 get '/challenges' => sub {
     my $self = shift;
-    my @rows = @{
-        $dbh->selectcol_arrayref(
-            'SELECT challenge_id FROM solved_challenges
-        WHERE user_id = ?',
-            {},
-            $self->session('user')->{id},
-        )};
-    my %is_solved = map { $_ => 1 } @rows;
 
-    my (%solved, %unsolved);
-    foreach my $c (Intercensor::Challenge->all()) {
-        if ($is_solved{$c->id}) {
-            $solved{$c->id} = $c;
-        }
-        else {
-            $unsolved{$c->id} = $c;
-        }
-    }
+    my @solved = $self->session('user')->solved_challenges;
+    my @unsolved = $self->session('user')->unsolved_challenges;
 
     $self->render(
         'challenges',
-        solved_challenges   => \%solved,
-        unsolved_challenges => \%unsolved,
+        solved_challenges   => \@solved,
+        unsolved_challenges => \@unsolved,
         page_title          => 'Challenges',
     );
 };
@@ -266,15 +205,7 @@ post '/challenge/:id/solve' => sub {
 #debug sprintf('User %s solving challenge %s: %s', $self->session('user')->{name}, $self->param('id'), $a);
 
         if ($c->verify_answer($self->session('user')->{id}, $a)) {
-            $dbh->do(
-                'INSERT INTO solved_challenges
-                     (user_id, challenge_id, solved_at)
-                     VALUES (?, ?, ?)',
-                {},
-                $self->session('user')->{id},
-                $c->id,
-                DateTime->now(),
-            );
+            $self->session('user')->solve_challenge($c);
             delete_from_ipset($self->stash('current_challenge')->id,
                 $self->tx->remote_address);
 

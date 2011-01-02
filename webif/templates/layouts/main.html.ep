@@ -49,8 +49,9 @@
         <h2>Latest challenges</h2>
 
         <% foreach my $c (@$latest_challenges) { %>
-        <h3><%= $c->{name} %></h3>
-        <img src="/images/challenges/small/<%= $c->{id} %>.png" alt="<%= $c->{name} %>" />
+        <h3><%= $c->{challenge}->name %></h3>
+        <img src="/images/challenges/small/<%= $c->{challenge}->id %>.png"
+             alt="<%= $c->{challenge}->id %>" />
         <address><%= $c->{solved_at} %></address>
         <% } %>
     </div>

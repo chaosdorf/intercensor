@@ -89,7 +89,7 @@ under sub {
     $user->address($self->tx->remote_address);
 
     $self->stash(current_username => $self->session('user')->{name});
-    $self->stash(current_challenge => $user->current_challenge);
+    $self->stash(current_challenge => scalar $user->current_challenge);
 
     my @latest_challenges = $self->session('user')->latest_solved_challenges();
     $self->stash(latest_challenges => \@latest_challenges);

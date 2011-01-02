@@ -81,7 +81,7 @@ sub current_challenge {
     my ($self) = @_;
     my $cid = find_ipset($self->address);
     return Intercensor::Challenge->get($cid) if $cid;
-    return undef;
+    return;
 }
 
 sub stop_challenge {

@@ -155,3 +155,5 @@ sub latest_solved_challenges {
     }
     return @latest_challenges;
 }
+
+1;

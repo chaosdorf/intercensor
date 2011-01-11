@@ -4,12 +4,12 @@
 # The loopback network interface
 auto lo
 iface lo inet loopback
-	post-up for i in $(seq 0 99); do ip addr add 192.168.$i.1/32 dev lo; done
+	post-up for i in $(seq 0 99); do ip addr add 127.72.$i.1/32 dev lo; done
 
 auto ext
 iface ext inet dhcp
 
 auto int
 iface int inet static
-	address 10.253.178.1
+	address 10.72.0.1
 	netmask 255.255.255.0

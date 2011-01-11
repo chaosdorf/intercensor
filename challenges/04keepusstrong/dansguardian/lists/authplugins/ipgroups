@@ -3,7 +3,7 @@
 #
 # Examples:
 # Straight IP matching:
-#192.168.0.1 = filter1
+#127.72.0.1 = filter1
 # Subnet matching:
 #192.168.1.0/255.255.255.0 = filter1
 # Range matching:

@@ -7,6 +7,6 @@
 # This is not the IP of web servers
 # you want to filter.
 
-#192.168.0.1
+#127.72.0.1
 #192.168.0.2
 #192.168.42.2

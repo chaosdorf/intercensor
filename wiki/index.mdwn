@@ -25,7 +25,7 @@ Experiences from past events and [[history]] of the Intercensor Project.
 
 There is a [german description](https://www.chaosdorf.de/projekte/zensurbox/).
 
-[[stuff]]  
+[[stuff]]
 [[sitemap]]
 
 [web interface templates](http://penma.de/extercensor)

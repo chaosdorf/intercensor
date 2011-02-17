@@ -9,7 +9,7 @@ needed.
 
 ## Intercensor 2.0
 
-[[!img cccd_planung.jpg size=400x]]  
+[[!img cccd_planung.jpg size=400x]]
 We now have version 2 of the box. It features a really neat web interface, new
 and also more challenges (right now we have five, more are planned), we will
 also soon add a highscore so that users can see how good/fast they were.
@@ -20,19 +20,19 @@ A few events we visited with Interncensor:
 
 #### OpenRheinRuhr 2009
 
-[[!img orr09_box.jpg size=400x]]  
+[[!img orr09_box.jpg size=400x]]
 The very first version. The three switches provided the levels "Leyenhaft"
 (easy, DNS censorship), "1 2 3 4 (B)Eckstein" (transparent http proxy) and
 "Zen Sur (made in china)" (http stringmatch, all other ports blocked).
 
-[[!img orr09_interface.jpg size=400x]]  
+[[!img orr09_interface.jpg size=400x]]
 Since the OpenRheinRuhr is not that much of a hacker-event, we provided a
 laptop for guests who wanted to play but didn't have their own hardware with
 them.
 
 #### 26C3
 
-[[!img 26c3_schild.jpg size=400x]] [[!img 26c3_box.jpg size=400x]]  
+[[!img 26c3_schild.jpg size=400x]] [[!img 26c3_box.jpg size=400x]]
 A later version, the grey box under the Dell Notebook. Already using the web
 interface.
 
@@ -46,7 +46,7 @@ project.
 
 #### FrOSCon 2010
 
-[[!img froscon10_box.jpg size=400x]]  
+[[!img froscon10_box.jpg size=400x]]
 We also had a small booth on the FrOSCon (west german OpenSource conference)
 
 #### 27C3

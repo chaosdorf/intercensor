@@ -1,4 +1,4 @@
-[[!img froscon10_box.jpg size=400x align=right]]
+[[!img froscon10_box.jpg size=400x align=center]]
 
 In the past years there was a lot of discussion about internet censorship.  To
 get an actual impression of censorship implementation details and

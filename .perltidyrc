@@ -1,0 +1,5 @@
+--check-syntax
+--output-line-ending=unix
+--add-semicolons
+--perl-best-practices
+--nostandard-output

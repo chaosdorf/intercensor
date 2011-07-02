@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0">
+
+    <channel>
+        <title>Fefes Blog</title>
+        <link>http://blog.fefe.de/</link>
+        <description>Verschwörungen und Obskures aus aller Welt</description>
+        <language>de</language>
+        <item>
+            <title>TEST TITLE</title>
+            <link>http://blog.fefe.de/?ts=b0f0302b</link>
+            <guid>http://blog.fefe.de/?ts=b0f0302b</guid>
+        </item>
+    </channel>
+</rss>

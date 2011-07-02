@@ -55,7 +55,7 @@ has 'generator' => (
     init_arg => undef,
     lazy => 1,
     builder => '_build_generator',
-    handles => ['generate'],
+    handles => 'Intercensor::Quest::Generator',
 );
 
 has 'verifier' => (
@@ -64,7 +64,7 @@ has 'verifier' => (
     init_arg => undef,
     lazy => 1,
     builder => '_build_verifier',
-    handles => ['verify'],
+    handles => 'Intercensor::Quest::Verifier',
 );
 
 sub _build_generator {
